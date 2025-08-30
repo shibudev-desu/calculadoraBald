@@ -14,6 +14,13 @@ memory_slots = {
   "M": "0"
 }
 
+"""
+    Talvez seja uma boa ter essa variável.
+    Eu falo talvez, já que eu não sei. Mas, algumas operações precisam do último número digitado.
+"""
+
+lastNumber = 0
+
 def valid_slots():
     """Return list of valid slot keys."""
     return list(memory_slots.keys())
@@ -39,7 +46,6 @@ def get_memory(slot: str):
     if not isinstance(slot, str):
         return None
     return memory_slots.get(slot.strip().upper(), None)
-
 
 def shiftTeorico():
     global shift
