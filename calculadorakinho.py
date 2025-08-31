@@ -87,7 +87,7 @@ def calcular(display, app):
             display.insert(0, resultado.replace(".", ",")) 
         if app.selecao.get() == "Científica":
             display.delete(0, tk.END) 
-            display.insert(0, str(resultado))
+            display.insert(0, resultado.replace(".", ","))
 
     except (SyntaxError, ZeroDivisionError, NameError, ValueError, TypeError) as e: 
         print(f"Erro: {e}") 
@@ -328,7 +328,7 @@ class Cientifica(tk.Frame):
              ("", "4", lambda: inserir("4", self.display),7), 
              ("", "5", lambda: inserir("5", self.display),7), 
              ("", "6", lambda: inserir("6", self.display),7), 
-             ("", "x", lambda: inserir("x", self.display),7), 
+             ("", "×", lambda: inserir("×", self.display),7), 
              ("", "÷", lambda: inserir("÷", self.display),7)
             ], 
 
