@@ -6,166 +6,9 @@ import random as random
 import variables as var
 from functions.memoryFx import _sto, _rcl
 from functions.signals import swapSignals, changeDisplay
+from functions.button_defs import make_botoes
+from functions import operations_def as ops
 
-# Será apagado provavelmente
-# ——————————————————————————————————————————————————————
-def format_result(value, app):
-    try:
-        mode, digits = var.get_round_settings()
-        if mode == "fix":
-            out = f"{value:.{digits}f}"
-        elif mode == "sci":
-            sig = max(1, int(digits))
-            out = f"{value:.{sig}e}"
-        else:  # norm
-            out = f"{value:.12g}"
-        if app.selecao.get() == "Normal":
-            out = out.replace(".", ",")
-        return out
-    except Exception:
-        return "Erro"
-# ——————————————————————————————————————————————————————
-
-
-def inserir(valor, display): 
-    atual = display.get()
-
-    # Verifica se a entrada é um número (incluindo o ponto decimal)
-    if (valor.isdigit() and valor != "0") or valor == "." or (valor == "-" and atual == "0"):
-        if atual == "0" and valor not in ["+", "-", "×", "÷", "%"]:
-            display.delete(0, tk.END)
-        display.insert(tk.END, valor)
-        
-        # Se for um número, adiciona ao var.lastNumber
-        if valor.isdigit() or valor == ".":
-            var.lastNumber += valor
-            
-    else:
-        var.lastNumber = ""
-        display.insert(tk.END, valor)
- 
-def limpar_tudo(display): 
-    display.delete(0, tk.END) 
-    display.insert(0, "0") 
- 
-def limpar_ultimo(display): 
-     
-    atual = display.get() 
-    if len(atual) > 1: 
-        display.delete(len(atual) - 1) 
-    else: 
-        limpar_tudo(display) 
- 
-def calcular(display, app): 
-    print(app)
-
-    try:
-        expressao = display.get()\
-            .replace("×", "*")\
-            .replace("÷", "/")\
-            .replace("√", "math.sqrt")\
-            .replace("sin(", "math.sin(math.radians(")\
-            .replace("cos(", "math.cos(math.radians(")\
-            .replace("tan(", "math.tan(math.radians(")\
-            .replace("asin(", "math.degrees(math.asin(")\
-            .replace("acos(", "math.degrees(math.acos(")\
-            .replace("atan(", "math.degrees(math.atan(")\
-            .replace("log(", "math.log10(")\
-            .replace("ln(", "math.log(")\
-            .replace("Ran#(", "random.uniform(0, ")\
-            .replace("^", "**")
-
-        if app.selecao.get() == "Normal":
-            expressao = expressao.replace(",", ".")
-        
-        print(expressao)
-        resultado = str(eval(expressao))
-        var.lastNumber = resultado
-
-        if app.selecao.get() == "Normal":
-            display.delete(0, tk.END) 
-            display.insert(0, resultado.replace(".", ",")) 
-        if app.selecao.get() == "Científica":
-            display.delete(0, tk.END) 
-            display.insert(0, resultado.replace(".", ","))
-
-    except (SyntaxError, ZeroDivisionError, NameError, ValueError, TypeError) as e: 
-        print(f"Erro: {e}") 
-        display.delete(0, tk.END) 
-        display.insert(0, "Erro") 
-
-# def inverter_sinal(display):    
-#     try: 
-#         valor = float(display.get().replace(",", ".")) 
-#         valor *= -1 
-#         display.delete(0, tk.END) 
-#         display.insert(0, str(valor).replace(".", ",")) 
-#     except ValueError: 
-#         pass 
- 
-def calcular_raiz(display): 
- 
-    try: 
-        valor = float(display.get().replace(",", ".")) 
-        if valor < 0: 
-            raise ValueError 
-        resultado = math.sqrt(valor) 
-        display.delete(0, tk.END) 
-        display.insert(0, str(resultado).replace(".", ",")) 
-    except (ValueError, TypeError): 
-        display.delete(0, tk.END) 
-        display.insert(0, "Erro") 
- 
-def ao_quadrado(display): 
- 
-    try: 
-        valor = float(display.get().replace(",", ".")) 
-        resultado = valor ** 2 
-        display.delete(0, tk.END) 
-        display.insert(0, str(resultado).replace(".", ",")) 
-    except (ValueError, TypeError): 
-        display.delete(0, tk.END) 
-        display.insert(0, "Erro") 
- 
-def um_sobre_x(display): 
- 
-    try: 
-        valor = float(display.get().replace(",", ".")) 
-        if valor == 0: 
-            raise ZeroDivisionError 
-        resultado = 1 / valor 
-        display.delete(0, tk.END) 
-        display.insert(0, "0") 
-        display.insert(0, str(resultado).replace(".", ",")) 
-    except (ValueError, ZeroDivisionError, TypeError): 
-        display.delete(0, tk.END) 
-        display.insert(0, "Erro") 
- 
-def ao_cubo(display): 
- 
-    try: 
-        valor = float(display.get().replace(",", ".")) 
-        resultado = valor ** 3 
-        display.delete(0, tk.END) 
-        display.insert(0, str(resultado).replace(".", ",")) 
-    except (ValueError, TypeError): 
-        display.delete(0, tk.END) 
-        display.insert(0, "Erro") 
- 
-def calcular_raiz_cubica(display): 
- 
-    try: 
-        valor = float(display.get().replace(",", ".")) 
-        resultado = valor ** (1/3) 
-        display.delete(0, tk.END) 
-        display.insert(0, str(resultado).replace(".", ",")) 
-    except (ValueError, TypeError): 
-        display.delete(0, tk.END) 
-        display.insert(0, "Erro") 
- 
-def nao_implementado(): 
-    print("Função não implementada.") 
- 
 class App(tk.Tk): 
  
     def __init__(self): 
@@ -228,11 +71,11 @@ class Normal(tk.Frame):
         self.display.grid(row=0, column=0, columnspan=4, padx=10, pady=(10, 20), sticky="nsew") 
  
         botoes = [ 
-            [("%", lambda: inserir("%", self.display)), ("CE", lambda: limpar_tudo(self.display)), ("⌫", lambda: limpar_ultimo(self.display)), ("÷", lambda: inserir("÷", self.display))], 
-            [("7", lambda: inserir("7", self.display)), ("8", lambda: inserir("8", self.display)), ("9", lambda: inserir("9", self.display)), ("×", lambda: inserir("×", self.display))], 
-            [("4", lambda: inserir("4", self.display)), ("5", lambda: inserir("5", self.display)), ("6", lambda: inserir("6", self.display)), ("−", lambda: inserir("-", self.display))], 
-            [("1", lambda: inserir("1", self.display)), ("2", lambda: inserir("2", self.display)), ("3", lambda: inserir("3", self.display)), ("+", lambda: inserir("+", self.display))], 
-            [("0", lambda: inserir("0", self.display)), (",", lambda: inserir(",", self.display)), ("=", lambda: calcular(self.display, self.controller))] 
+            [("%", lambda: ops.inserir("%", self.display)), ("CE", lambda: ops.limpar_tudo(self.display)), ("⌫", lambda: ops.limpar_ultimo(self.display)), ("÷", lambda: ops.inserir("÷", self.display))], 
+            [("7", lambda: ops.inserir("7", self.display)), ("8", lambda: ops.inserir("8", self.display)), ("9", lambda: ops.inserir("9", self.display)), ("×", lambda: ops.inserir("×", self.display))], 
+            [("4", lambda: ops.inserir("4", self.display)), ("5", lambda: ops.inserir("5", self.display)), ("6", lambda: ops.inserir("6", self.display)), ("−", lambda: ops.inserir("-", self.display))], 
+            [("1", lambda: ops.inserir("1", self.display)), ("2", lambda: ops.inserir("2", self.display)), ("3", lambda: ops.inserir("3", self.display)), ("+", lambda: ops.inserir("+", self.display))], 
+            [("0", lambda: ops.inserir("0", self.display)), (",", lambda: ops.inserir(",", self.display)), ("=", lambda: ops.calcular(self.display, self.controller))] 
         ] 
   
         for i, linha in enumerate(botoes): 
@@ -263,91 +106,9 @@ class Cientifica(tk.Frame):
         self.display.insert(0, "0") 
         self.display.grid(row=0, column=0, columnspan=5, padx=10, pady=(10, 20), sticky="nsew") 
  
-      # Meramente temporário, serve de zona de teste
-      # —————————————————————————————————————————————————————————————   
-
-        def toggle_shift():
-            var.shiftTeorico()
-            print("SHIFT set for next operation")
-
-      # —————————————————————————————————————————————————————————————
-
-        botoes = [
-            [
-             ("", "SHIFT", toggle_shift, 7), 
-             ("", "ALPHA", nao_implementado, 7),  
-             ("", "REPLAY", nao_implementado, 7), 
-             ("CLR", "MODE", nao_implementado, 7), 
-             ("", "ON", lambda: limpar_tudo(self.display),7)
-            ],
-
-            [
-             ("x!", "x⁻¹", um_sobre_x,12), 
-             ("nPr", "nCr", nao_implementado, 12),
-             ("   ", "    ", nao_implementado, 12), 
-             ("Rec( :", "Pol(", nao_implementado, 12), 
-             ("³√", "x³", ao_cubo,12)
-            ], 
-
-            [
-             ("d/c", "ab/c", nao_implementado, 7), 
-             ("", "√", calcular_raiz,7), 
-             ("", "x²", ao_quadrado,7), 
-             ("x√", "^", lambda: inserir("^", self.display),7), 
-             ("10^", "log", lambda: inserir("log(", self.display),7), 
-             ("e^ e", "ln", lambda: inserir("ln(", self.display),7)
-            ], 
-
-            [
-             ("A", "(-)", (lambda d=self.display: "A?" if var.AlphaUsado() else changeDisplay(d)), 7),
-             ("⭠ B", ".,, ,,", nao_implementado, 7), 
-             ("hyp", "C", nao_implementado, 7), 
-             ("sin⁻¹   D", "sin", lambda: inserir("sin(", self.display),7), 
-             ("cos⁻¹ E", "cos", lambda: inserir("cos(", self.display),7), 
-             ("tan⁻¹ F", "tan", lambda: inserir("tan(", self.display),7)
-            ],
-
-            [
-             ("STO", "RCL", (lambda d=self.display, p=self.controller: _sto(d, p) if var.ShiftUsado() else _rcl(d, p)), 7), 
-             ("⭠", "ENG", nao_implementado, 7), 
-             ("", "(", lambda: inserir("(", self.display),7), 
-             ("x", ")", lambda: inserir(")", self.display),7), 
-             (":     Y", ",", (lambda d=self.display: inserir(":", d) if var.ShiftUsado() else inserir(",", d)), 7), 
-             ("M- M", "M+", nao_implementado, 7)
-            ],
-
-            [
-             ("", "7", lambda: inserir("7", self.display),7), 
-             ("", "8", lambda: inserir("8", self.display),7), 
-             ("", "9", lambda: inserir("9", self.display),7),   
-             ("INS", "DEL", nao_implementado, 7), 
-             ("OFF", "AC", nao_implementado, 7)
-            ], 
-
-            [
-             ("", "4", lambda: inserir("4", self.display),7), 
-             ("", "5", lambda: inserir("5", self.display),7), 
-             ("", "6", lambda: inserir("6", self.display),7), 
-             ("", "×", lambda: inserir("×", self.display),7), 
-             ("", "÷", lambda: inserir("÷", self.display),7)
-            ], 
-
-            [
-             ("S-SUM", "1", lambda: inserir("1", self.display),7), 
-             ("SVAR", "2", lambda: inserir("2", self.display),7), 
-             ("", "3", lambda: inserir("3", self.display),7), 
-             ("", "+", lambda: inserir("+", self.display),7), 
-             ("", "-", lambda: inserir("-", self.display),7)
-            ], 
-
-            [
-             ("Rnd", "0", (lambda d=self.display: inserir("Rnd(", d) if var.ShiftUsado() else inserir("0", d)),7), 
-             ("Ran#", ".", (lambda d=self.display: inserir("Ran#(", d) if var.ShiftUsado() else inserir(".", d)),7), 
-             ("π", "EXP", nao_implementado, 7), 
-             ("DRG+", "Ans", nao_implementado, 7), 
-             ("%", "=", lambda: calcular(self.display, self.controller),7)
-            ]
-        ]
+        botoes = make_botoes(self, self.controller,
+                             ops.inserir, ops.limpar_tudo, ops.limpar_ultimo, ops.calcular,
+                             ops.nao_implementado, _sto, _rcl, var, changeDisplay)
 
         for i, linha in enumerate(botoes):
             for j, (texto_superior, texto_principal, funcao, larg) in enumerate(linha):
@@ -361,7 +122,6 @@ class Cientifica(tk.Frame):
                     label_top = tk.Label(btn_container, 
                     text=texto_superior, font=("Arial", 8), bg="#1e1e1e", fg="#b6b6b6") 
                     label_top.grid(row=0, column=0, sticky="EW") 
-                     
                 larg=7 
                  
                 if texto_principal == "REPLAY": 
@@ -377,6 +137,4 @@ class Cientifica(tk.Frame):
   
 if __name__ == "__main__": 
     app = App() 
-    app.mainloop() 
- 
- 
+    app.mainloop()

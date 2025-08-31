@@ -38,5 +38,12 @@ def _rcl(display, parent):
         return
     if parent.selecao.get() == "Normal":
         val = val.replace(".", ",")
-    display.delete(0, tk.END)
-    display.insert(0, val)
+    current = display.get()
+    if current == "0" or current == "":
+        display.delete(0, tk.END)
+        display.insert(0, val)
+    else:
+        try:
+            display.insert(tk.INSERT, val)
+        except Exception:
+            display.insert(tk.END, val)
