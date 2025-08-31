@@ -14,24 +14,37 @@ memory_slots = {
   "M": "0"
 }
 
-"""
-    Talvez seja uma boa ter essa variável.
-    Eu falo talvez, já que eu não sei. Mas, algumas operações precisam do último número digitado.
-"""
-
+# talvez útil manter último número digitado
 lastNumber = "0"
+
+# rounding helpers (optional, safe fallback)
+round_mode = "norm"
+round_digits = 2
+
+def get_round_settings():
+    return round_mode, round_digits
+
+def set_round_mode(mode: str):
+    global round_mode
+    if mode in ("norm", "fix", "sci", "rnd"):
+        round_mode = mode
+
+def set_round_digits(n: int):
+    global round_digits
+    try:
+        round_digits = max(0, int(n))
+    except Exception:
+        pass
 
 def valid_slots():
     """Return list of valid slot keys."""
     return list(memory_slots.keys())
 
-# Retorna true se o slot existir
 def is_valid_slot(slot: str) -> bool:
     if not slot or not isinstance(slot, str):
         return False
     return slot.strip().upper() in memory_slots
 
-# Vai guardar na memória, se der certo retorna true
 def set_memory(slot: str, value: str) -> bool:
     if not isinstance(slot, str):
         return False
@@ -41,7 +54,6 @@ def set_memory(slot: str, value: str) -> bool:
         return True
     return False
 
-# Retorna o valor armazenado ou None se o slot for inválido / inexistente.
 def get_memory(slot: str):
     if not isinstance(slot, str):
         return None
@@ -50,6 +62,10 @@ def get_memory(slot: str):
 def shiftTeorico():
     global shift
     shift = 1
+
+def toggle_shift():
+    shiftTeorico()
+    print("SHIFT set for next operation")
 
 def ShiftUsado():
     global shift
