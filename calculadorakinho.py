@@ -30,16 +30,21 @@ def format_result(value, app):
 def inserir(valor, display): 
     atual = display.get()
 
-    if valor not in "0+-×÷%":
-        var.lastNumber = valor
-    
-    if atual == "0" and valor not in "+-×÷%": 
-        display.delete(0, tk.END)
-    
-    display.insert(tk.END, valor)
+    # Verifica se a entrada é um número (incluindo o ponto decimal)
+    if (valor.isdigit() and valor != "0") or valor == "." or (valor == "-" and atual == "0"):
+        if atual == "0" and valor not in ["+", "-", "×", "÷", "%"]:
+            display.delete(0, tk.END)
+        display.insert(tk.END, valor)
+        
+        # Se for um número, adiciona ao var.lastNumber
+        if valor.isdigit() or valor == ".":
+            var.lastNumber += valor
+            
+    else:
+        var.lastNumber = ""
+        display.insert(tk.END, valor)
  
 def limpar_tudo(display): 
-    
     display.delete(0, tk.END) 
     display.insert(0, "0") 
  
@@ -72,31 +77,31 @@ def calcular(display, app):
 
         if app.selecao.get() == "Normal":
             expressao = expressao.replace(",", ".")
-        print(expressao)
-        resultado = eval(expressao) 
-        var.lastNumber = resultado
         
+        print(expressao)
+        resultado = str(eval(expressao))
+        var.lastNumber = resultado
+
         if app.selecao.get() == "Normal":
             display.delete(0, tk.END) 
             display.insert(0, resultado.replace(".", ",")) 
         if app.selecao.get() == "Científica":
             display.delete(0, tk.END) 
-            display.insert(0, str(resultado))
+            display.insert(0, resultado.replace(".", ","))
 
     except (SyntaxError, ZeroDivisionError, NameError, ValueError, TypeError) as e: 
         print(f"Erro: {e}") 
         display.delete(0, tk.END) 
         display.insert(0, "Erro") 
- 
-def inverter_sinal(display): 
-   
-    try: 
-        valor = float(display.get().replace(",", ".")) 
-        valor *= -1 
-        display.delete(0, tk.END) 
-        display.insert(0, str(valor).replace(".", ",")) 
-    except ValueError: 
-        pass 
+
+# def inverter_sinal(display):    
+#     try: 
+#         valor = float(display.get().replace(",", ".")) 
+#         valor *= -1 
+#         display.delete(0, tk.END) 
+#         display.insert(0, str(valor).replace(".", ",")) 
+#     except ValueError: 
+#         pass 
  
 def calcular_raiz(display): 
  
@@ -323,7 +328,7 @@ class Cientifica(tk.Frame):
              ("", "4", lambda: inserir("4", self.display),7), 
              ("", "5", lambda: inserir("5", self.display),7), 
              ("", "6", lambda: inserir("6", self.display),7), 
-             ("", "x", lambda: inserir("x", self.display),7), 
+             ("", "×", lambda: inserir("×", self.display),7), 
              ("", "÷", lambda: inserir("÷", self.display),7)
             ], 
 

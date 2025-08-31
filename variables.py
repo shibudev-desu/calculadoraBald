@@ -19,7 +19,7 @@ memory_slots = {
     Eu falo talvez, já que eu não sei. Mas, algumas operações precisam do último número digitado.
 """
 
-lastNumber = 0
+lastNumber = "0"
 
 def valid_slots():
     """Return list of valid slot keys."""
