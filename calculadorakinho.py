@@ -53,8 +53,8 @@ def limpar_ultimo(display):
  
 def calcular(display, app): 
     print(app)
-    try: 
 
+    try:
         expressao = display.get()\
             .replace("×", "*")\
             .replace("÷", "/")\
@@ -74,7 +74,8 @@ def calcular(display, app):
             expressao = expressao.replace(",", ".")
         print(expressao)
         resultado = eval(expressao) 
-
+        var.lastNumber = resultado
+        
         if app.selecao.get() == "Normal":
             display.delete(0, tk.END) 
             display.insert(0, resultado.replace(".", ",")) 
