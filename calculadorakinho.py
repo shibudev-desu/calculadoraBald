@@ -79,7 +79,7 @@ def calcular(display, app):
             expressao = expressao.replace(",", ".")
         
         print(expressao)
-        resultado = eval(expressao) 
+        resultado = str(eval(expressao))
         var.lastNumber = resultado
 
         if app.selecao.get() == "Normal":
