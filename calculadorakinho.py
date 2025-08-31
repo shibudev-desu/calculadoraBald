@@ -5,7 +5,8 @@ import random as random
 
 import variables as var
 from functions.memoryFx import _sto, _rcl
- 
+from functions.signals import swapSignals, changeDisplay
+
 # Será apagado provavelmente
 # ——————————————————————————————————————————————————————
 def format_result(value, app):
@@ -27,12 +28,15 @@ def format_result(value, app):
 
 
 def inserir(valor, display): 
- 
-    atual = display.get() 
- 
+    atual = display.get()
+
+    if valor not in "0+-×÷%":
+        var.lastNumber = valor
+    
     if atual == "0" and valor not in "+-×÷%": 
-        display.delete(0, tk.END) 
-    display.insert(tk.END, valor) 
+        display.delete(0, tk.END)
+    
+    display.insert(tk.END, valor)
  
 def limpar_tudo(display): 
     
@@ -289,13 +293,13 @@ class Cientifica(tk.Frame):
             ], 
 
             [
-             ("A", "(-)", (lambda d=self.display: inserir() if var.AlphaUsado() else inserir("-", d)), 7),
+             ("A", "(-)", (lambda d=self.display: "A?" if var.AlphaUsado() else changeDisplay(d)), 7),
              ("⭠ B", ".,, ,,", nao_implementado, 7), 
              ("hyp", "C", nao_implementado, 7), 
              ("sin⁻¹   D", "sin", lambda: inserir("sin(", self.display),7), 
              ("cos⁻¹ E", "cos", lambda: inserir("cos(", self.display),7), 
              ("tan⁻¹ F", "tan", lambda: inserir("tan(", self.display),7)
-             ],
+            ],
 
             [
              ("STO", "RCL", (lambda d=self.display, p=self.controller: _sto(d, p) if var.ShiftUsado() else _rcl(d, p)), 7), 
