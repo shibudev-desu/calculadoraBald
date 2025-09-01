@@ -24,7 +24,7 @@ def swapSignals(valor):
 def changeDisplay(display):
     try:
         expr = display.get()
-        m1 = re.search(r"([+-])([+-]?\d*+(?:[.,]\d+)?)$", expr)
+        m1 = re.search(r"([+-]?)(\d*+(?:[.,]\d+)?)$", expr)
 
         if m1:
             op = m1.group(1)
@@ -38,7 +38,7 @@ def changeDisplay(display):
                 return
             
             num_sem_sinal = num.lstrip("+-")
-            novo_op = "-" if op == "+" else "+"
+            novo_op = "-" if op != "-" else "+"
             nova_expr = expr[:m1.start(1)] + novo_op + num_sem_sinal
             display.delete(0, tk.END)
             display.insert(0, nova_expr)
@@ -50,7 +50,7 @@ def changeDisplay(display):
             
             return
 
-        m2 = re.search(r"([+-]?\d*+(?:[.,]\d+)?)$", expr)
+        m2 = re.search(r"([+-]?\d*+([.,]\d+)?)$", expr)
 
         if m2:
             num = m2.group(1)
