@@ -2,7 +2,6 @@ import tkinter as tk
 import variables as var
 import re
 
-# signals.py
 def swapSignals(valor):
     try:
         usa_virgula = ("," in valor)
@@ -13,9 +12,11 @@ def swapSignals(valor):
             return valor
 
         num *= -1
-        s = str(num)
+        s = str(num).replace(".0", "")
+
         if usa_virgula:
             s = s.replace(".", ",")
+        
         return s
     except (ValueError, TypeError):
         return valor
