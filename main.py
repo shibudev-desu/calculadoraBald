@@ -9,8 +9,7 @@ from functions.signals import swapSignals, changeDisplay
 from functions.button_defs import make_botoes
 from functions import operations_def as ops
 
-class App(tk.Tk): 
- 
+class App(tk.Tk):
     def __init__(self): 
         super().__init__() 
         self.title("Calculadora") 
@@ -20,7 +19,7 @@ class App(tk.Tk):
  
         self.opcoes = ["Normal", "Científica"] 
         self.selecao = tk.StringVar(value="Normal") 
-        style = ttk.Style() 
+        style = ttk.Style()
         style.theme_use('clam') 
         style.configure("styles.TCombobox", 
                         fieldbackground="#2b2b2b", 

@@ -2,37 +2,39 @@ import tkinter as tk
 import variables as var
 import re
 
+# signals.py
 def swapSignals(valor):
     try:
-        return float(valor) * -1
+        usa_virgula = ("," in valor)
+        v = valor.replace(",", ".")
+        num = float(v)
+
+        if num == 0:
+            return valor
+
+        num *= -1
+        s = str(num)
+        if usa_virgula:
+            s = s.replace(".", ",")
+        return s
     except (ValueError, TypeError):
         return valor
 
 def changeDisplay(display):
     try:
-        expressao_atual = display.get()
-        
-        # Expressão regular para encontrar o último número, incluindo decimais
-        # e sinais de menos.
-        match = re.search(r'([-+]?\d*\.?\d+)$', expressao_atual)
-        
+        expr = display.get()
+        match = re.search(r"([-+]?\d*[.,]?\d+)$", expr)
+
         if match:
-            last_num_str = match.group(0)
+            last_num = match.group(0)
             
-            # Se o último caractere for um operador, não faz nada
-            if last_num_str in ['+', '-', '×', '÷', '%']:
+            if last_num in ["+", "-", "×", "÷", "%"]:
                 return
-                
-            novo_valor = swapSignals(last_num_str)
             
-            # Substitui o último número na string inteira
-            nova_expressao = expressao_atual[:-len(last_num_str)] + str(novo_valor)
-            
+            newNumber = swapSignals(last_num)
+            newExpression = expr[:-len(last_num)] + str(newNumber)
             display.delete(0, tk.END)
-            display.insert(0, nova_expressao)
-            
-            # Atualiza o lastNumber para o novo valor
-            var.lastNumber = str(novo_valor)
-            
+            display.insert(0, newExpression)
+            var.lastNumber = str(newNumber)
     except Exception as e:
         print(f"Erro ao trocar sinal: {e}")

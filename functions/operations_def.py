@@ -1,24 +1,27 @@
 import tkinter as tk
 import math
 import random
+import re
+
 import variables as var
 
 def calcular(display, app): 
     try:
-        expressao = display.get()\
-            .replace("×", "*")\
-            .replace("÷", "/")\
-            .replace("√", "math.sqrt")\
-            .replace("sin(", "math.sin(math.radians(")\
-            .replace("cos(", "math.cos(math.radians(")\
-            .replace("tan(", "math.tan(math.radians(")\
-            .replace("asin(", "math.degrees(math.asin(")\
-            .replace("acos(", "math.degrees(math.acos(")\
-            .replace("atan(", "math.degrees(math.atan(")\
-            .replace("log(", "math.log10(")\
-            .replace("ln(", "math.log(")\
-            .replace("Ran#(", "random.uniform(0, ")\
+        expressao = (display.get()
+            .replace("×", "*")
+            .replace("÷", "/")
+            .replace("√", "math.sqrt")
+            .replace("sin(", "math.sin(math.radians(")
+            .replace("cos(", "math.cos(math.radians(")
+            .replace("tan(", "math.tan(math.radians(")
+            .replace("asin(", "math.degrees(math.asin(")
+            .replace("acos(", "math.degrees(math.acos(")
+            .replace("atan(", "math.degrees(math.atan(")
+            .replace("log(", "math.log10(")
+            .replace("ln(", "math.log(")
+            .replace("Ran#(", "random.uniform(0, ")
             .replace("^", "**")
+        )
 
         if app.selecao.get() == "Normal":
             expressao = expressao.replace(",", ".")
@@ -37,15 +40,29 @@ def calcular(display, app):
 
 def inserir(valor, display):
     atual = display.get()
-    if (valor.isdigit() and valor != "0") or valor == "." or (valor == "-" and atual == "0"):
-        if atual == "0" and valor not in ["+", "-", "×", "÷", "%"]:
-            display.delete(0, tk.END)
-        display.insert(tk.END, valor)
-        if valor.isdigit() or valor == ".":
-            var.lastNumber += valor
-    else:
-        var.lastNumber = ""
-        display.insert(tk.END, valor)
+
+    # pega o último número digitado (após operadores)
+    match = re.search(r"([0-9.,]+)$", atual)
+    ultimo_numero = match.group(0) if match else ""
+
+    # Evitar duas vírgulas no modo Normal
+    if valor == "," and "," in ultimo_numero:
+        return
+
+    # Evitar dois pontos no modo Científica
+    if valor == "." and "." in ultimo_numero:
+        return
+
+    if atual == "0" and valor not in "+-×÷%":
+        display.delete(0, tk.END)
+
+    display.insert(tk.END, valor)
+
+def limpar_tudo(display):
+    display.delete(0, tk.END)
+    display.insert(0, "0")
+    var.lastNumber = "0"
+
 
 def limpar_tudo(display):
     display.delete(0, tk.END)
@@ -104,12 +121,13 @@ def ao_quadrado(display):
 def um_sobre_x(display):
     try:
         valor = float(display.get().replace(",", "."))
+
         if valor == 0:
             raise ZeroDivisionError
+        
         resultado = 1 / valor
         display.delete(0, tk.END)
-        display.insert(0, "0")
-        display.insert(0, str(resultado).replace(".", ","))
+        display.insert(0, str(resultado))
     except (ValueError, ZeroDivisionError, TypeError):
         display.delete(0, tk.END)
         display.insert(0, "Erro")
