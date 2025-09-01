@@ -41,15 +41,12 @@ def calcular(display, app):
 def inserir(valor, display):
     atual = display.get()
 
-    # pega o último número digitado (após operadores)
     match = re.search(r"([0-9.,]+)$", atual)
     ultimo_numero = match.group(0) if match else ""
 
-    # Evitar duas vírgulas no modo Normal
     if valor == "," and "," in ultimo_numero:
         return
 
-    # Evitar dois pontos no modo Científica
     if valor == "." and "." in ultimo_numero:
         return
 
