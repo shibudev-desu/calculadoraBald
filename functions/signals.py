@@ -28,10 +28,6 @@ def changeDisplay(display):
 
         if match:
             last_num = match.group(0)
-            
-            if last_num in ["+", "-", "×", "÷", "%"]:
-                return
-            
             newNumber = swapSignals(last_num)
             newExpression = expr[:-len(last_num)] + str(newNumber)
             display.delete(0, tk.END)
