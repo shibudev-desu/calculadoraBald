@@ -42,7 +42,7 @@ def convertDecimal(value):
 
   formatted = f"{sign}{degrees}{degreeSign}{minutes}{minuteSign}{sec_str}{secondSign}"
 
-  return degrees, minutes, seconds, formatted
+  return formatted
 
 def add_degree_symbol(display):
   try:
