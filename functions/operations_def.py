@@ -38,15 +38,14 @@ def calcular(display, app):
             def _strip_deg(match):
                 return match.group(1)
             
-            expr_for_eval = token_pattern.sub(_strip_deg, expressao)
-            expr_for_eval = re.sub(r"(\d+(?:\.\d+)?)%", r"(\1/100)", expr_for_eval)
-            allowed = {"math": math, "random": random}
-            resultado = eval(expr_for_eval, {"__builtins__": {}}, allowed)
+            expr = token_pattern.sub(_strip_deg, expressao)
+            expr = re.sub(r"(\d+(?:\.\d+)?)%", r"(\1/100)", expr)
+            resultado = eval(expr)
             var.lastNumber = str(resultado)
 
             if all_have_deg:
                 try:
-                    _, _, _, dms_str = convertDecimal(str(resultado))
+                    dms_str = convertDecimal(str(resultado))
                 except Exception:
                     texto = format_result(resultado, app)
                     display.delete(0, "end")
