@@ -4,10 +4,13 @@ import random
 import re
 
 import variables as var
+from functions.degrees import convertDecimal
 
-def calcular(display, app): 
+def calcular(display, app):
     try:
-        expressao = (display.get()
+        raw = display.get()
+
+        expressao = (raw
             .replace("×", "*")
             .replace("÷", "/")
             .replace("√", "math.sqrt")
@@ -26,16 +29,56 @@ def calcular(display, app):
         if app.selecao.get() == "Normal":
             expressao = expressao.replace(",", ".")
 
-        resultado = eval(expressao)
-        var.lastNumber = str(resultado)
+        token_pattern = re.compile(r"([-+]?\d+(?:\.\d+)?)(°?)")
+        tokens = list(token_pattern.finditer(expressao))
 
-        texto = format_result(resultado, app)
-        display.delete(0, tk.END)
-        display.insert(0, texto)
+        if tokens:
+            all_have_deg = all(m.group(2) == "°" for m in tokens)
 
+            def _strip_deg(match):
+                return match.group(1)
+            
+            expr_for_eval = token_pattern.sub(_strip_deg, expressao)
+            expr_for_eval = re.sub(r"(\d+(?:\.\d+)?)%", r"(\1/100)", expr_for_eval)
+            allowed = {"math": math, "random": random}
+            resultado = eval(expr_for_eval, {"__builtins__": {}}, allowed)
+            var.lastNumber = str(resultado)
+
+            if all_have_deg:
+                try:
+                    _, _, _, dms_str = convertDecimal(str(resultado))
+                except Exception:
+                    texto = format_result(resultado, app)
+                    display.delete(0, "end")
+                    display.insert(0, texto)
+                    
+                    return
+
+                if app.selecao.get() == "Normal":
+                    dms_str = dms_str.replace(".", ",")
+
+                display.delete(0, "end")
+                display.insert(0, dms_str)
+                
+                return
+            else:
+                texto = format_result(resultado, app)
+                display.delete(0, "end")
+                display.insert(0, texto)
+                
+                return
+        else:
+            allowed = {"math": math, "random": random}
+            resultado = eval(expressao, {"__builtins__": {}}, allowed)
+            var.lastNumber = str(resultado)
+            texto = format_result(resultado, app)
+            display.delete(0, "end")
+            display.insert(0, texto)
+            
+            return
     except (SyntaxError, ZeroDivisionError, NameError, ValueError, TypeError) as e:
         print(f"Erro: {e}")
-        display.delete(0, tk.END)
+        display.delete(0, "end")
         display.insert(0, "Erro")
 
 def inserir(valor, display):
@@ -60,11 +103,6 @@ def limpar_tudo(display):
     display.insert(0, "0")
     var.lastNumber = "0"
 
-
-def limpar_tudo(display):
-    display.delete(0, tk.END)
-    display.insert(0, "0")
-
 def limpar_ultimo(display):
     atual = display.get()
     if len(atual) > 1:
@@ -74,7 +112,7 @@ def limpar_ultimo(display):
 
 
 def format_result(value, app):
-    # safe fallback if rounding helpers aren't present
+    # safe fallback if rounding helpers aren"t present
     try:
         if hasattr(var, "get_round_settings"):
             mode, digits = var.get_round_settings()
