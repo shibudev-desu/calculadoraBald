@@ -1,6 +1,17 @@
 # functions/degrees.py
+# Como implementar isso no seu código:
+# from functions import degrees as deg
+# deg.add_degree_symbol(frame.display)
+
+# O convertDecimal pode ser usado para converter um valor decimal em DMS (graus, minutos, segundos).
+# Exemplo:
+
+
+import math
+from random import random
 import re
 import variables as var
+import operations_def as ops
 
 degreeSign = "°"
 minuteSign = "'"
@@ -67,3 +78,51 @@ def add_degree_symbol(display):
   except Exception as e:
     print(f"Erro em add_degree_symbol: {e}")
     return False
+  
+def formatDegrees(expr, display, app):
+  token_pattern = re.compile(r"([-+]?\d+(?:\.\d+)?)(°?)")
+  tokens = list(token_pattern.finditer(expr))
+
+  if tokens:
+      all_have_deg = all(m.group(2) == "°" for m in tokens)
+
+      def _strip_deg(match):
+          return match.group(1)
+      
+      expr = token_pattern.sub(_strip_deg, expr)
+      expr = re.sub(r"(\d+(?:\.\d+)?)%", r"(\1/100)", expr)
+      resultado = eval(expr)
+      var.lastNumber = str(resultado)
+
+      if all_have_deg:
+          try:
+              dms_str = convertDecimal(str(resultado))
+          except Exception:
+              texto = ops.format_result(resultado, app)
+              display.delete(0, "end")
+              display.insert(0, texto)
+              
+              return
+
+          if app.selecao.get() == "Normal":
+              dms_str = dms_str.replace(".", ",")
+
+          display.delete(0, "end")
+          display.insert(0, dms_str)
+          
+          return
+      else:
+          texto = ops.format_result(resultado, app)
+          display.delete(0, "end")
+          display.insert(0, texto)
+          
+          return
+  else:
+      allowed = {"math": math, "random": random}
+      resultado = eval(expr, {"__builtins__": {}}, allowed)
+      var.lastNumber = str(resultado)
+      texto = ops.format_result(resultado, app)
+      display.delete(0, "end")
+      display.insert(0, texto)
+      
+      return
