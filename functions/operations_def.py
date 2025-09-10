@@ -94,7 +94,8 @@ def calcular(display, app):
         if app.selecao.get() == "Normal":
             expressao = expressao.replace(",", ".")
 
-        formatDegree(expressao, app, display)
+        deg.formatDegrees(expressao, display, app)
+
     except (SyntaxError, ZeroDivisionError, NameError, ValueError, TypeError) as e:
         print(f"Erro: {e}")
         display.delete(0, "end")
