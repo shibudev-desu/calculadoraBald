@@ -24,6 +24,27 @@ def format_result(value, app):
     except Exception:
         return "Erro"
 
+from functions import degrees as deg
+
+def format_result(value, app):
+    try:
+        if hasattr(var, "get_round_settings"):
+            mode, digits = var.get_round_settings()
+        else:
+            mode, digits = "norm", 2
+        if mode == "fix":
+            out = f"{value:.{digits}f}"
+        elif mode == "sci":
+            sig = max(1, int(digits))
+            out = f"{value:.{sig}e}"
+        else:
+            out = f"{value:.12g}"
+        if app.selecao.get() == "Normal":
+            out = out.replace(".", ",")
+        return out
+    except Exception:
+        return "Erro"
+
 def formatDegree(expression, app, display):
     token_pattern = re.compile(r"([-+]?\d+(?:\.\d+)?)(°?)")
     tokens = list(token_pattern.finditer(expression))
@@ -94,7 +115,7 @@ def calcular(display, app):
         if app.selecao.get() == "Normal":
             expressao = expressao.replace(",", ".")
 
-        deg.formatDegrees(expressao, display, app)
+        formatDegree(expressao, app, display)
 
     except (SyntaxError, ZeroDivisionError, NameError, ValueError, TypeError) as e:
         print(f"Erro: {e}")
