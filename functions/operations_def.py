@@ -1,10 +1,9 @@
 import tkinter as tk
 import math
-import random
 import re
 
 import variables as var
-from functions.degrees import convertDecimal
+from functions.degrees import formatDegree
 
 def calcular(display, app):
     try:
@@ -29,52 +28,7 @@ def calcular(display, app):
         if app.selecao.get() == "Normal":
             expressao = expressao.replace(",", ".")
 
-        token_pattern = re.compile(r"([-+]?\d+(?:\.\d+)?)(°?)")
-        tokens = list(token_pattern.finditer(expressao))
-
-        if tokens:
-            all_have_deg = all(m.group(2) == "°" for m in tokens)
-
-            def _strip_deg(match):
-                return match.group(1)
-            
-            expr = token_pattern.sub(_strip_deg, expressao)
-            expr = re.sub(r"(\d+(?:\.\d+)?)%", r"(\1/100)", expr)
-            resultado = eval(expr)
-            var.lastNumber = str(resultado)
-
-            if all_have_deg:
-                try:
-                    dms_str = convertDecimal(str(resultado))
-                except Exception:
-                    texto = format_result(resultado, app)
-                    display.delete(0, "end")
-                    display.insert(0, texto)
-                    
-                    return
-
-                if app.selecao.get() == "Normal":
-                    dms_str = dms_str.replace(".", ",")
-
-                display.delete(0, "end")
-                display.insert(0, dms_str)
-                
-                return
-            else:
-                texto = format_result(resultado, app)
-                display.delete(0, "end")
-                display.insert(0, texto)
-                
-                return
-        else:
-            allowed = {"math": math, "random": random}
-            resultado = eval(expressao, {"__builtins__": {}}, allowed)
-            var.lastNumber = str(resultado)
-            texto = format_result(resultado, app)
-            display.delete(0, "end")
-            display.insert(0, texto)
-            
-            return
+        formatDegree(expressao, app, display)
     except (SyntaxError, ZeroDivisionError, NameError, ValueError, TypeError) as e:
         print(f"Erro: {e}")
         display.delete(0, "end")
