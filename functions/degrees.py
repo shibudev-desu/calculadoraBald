@@ -1,14 +1,7 @@
 # functions/degrees.py
-# Como implementar isso no seu código:
-# from functions import degrees as deg
-# deg.add_degree_symbol(frame.display)
-
-# O convertDecimal pode ser usado para converter um valor decimal em DMS (graus, minutos, segundos).
-# Exemplo:
-
-
 import math
-from random import random
+import random
+
 import re
 import variables as var
 import operations_def as ops

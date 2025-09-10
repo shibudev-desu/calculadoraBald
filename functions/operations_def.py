@@ -1,10 +1,75 @@
 import tkinter as tk
 import math
-import random
 import re
 
 import variables as var
-import degrees as deg
+from functions import degrees as deg
+
+def format_result(value, app):
+    try:
+        if hasattr(var, "get_round_settings"):
+            mode, digits = var.get_round_settings()
+        else:
+            mode, digits = "norm", 2
+        if mode == "fix":
+            out = f"{value:.{digits}f}"
+        elif mode == "sci":
+            sig = max(1, int(digits))
+            out = f"{value:.{sig}e}"
+        else:
+            out = f"{value:.12g}"
+        if app.selecao.get() == "Normal":
+            out = out.replace(".", ",")
+        return out
+    except Exception:
+        return "Erro"
+
+def formatDegree(expression, app, display):
+    token_pattern = re.compile(r"([-+]?\d+(?:\.\d+)?)(°?)")
+    tokens = list(token_pattern.finditer(expression))
+
+    if tokens:
+        all_have_deg = all(m.group(2) == "°" for m in tokens)
+
+        def _strip_deg(match):
+            return match.group(1)
+        
+        expr = token_pattern.sub(_strip_deg, expression)
+        expr = re.sub(r"(\d+(?:\.\d+)?)%", r"(\1/100)", expr)
+        resultado = eval(expr)
+        var.lastNumber = str(resultado)
+
+        if all_have_deg:
+            try:
+                dms_str = deg.convertDecimal(str(resultado))
+            except Exception:
+                texto = format_result(resultado, app)
+                display.delete(0, "end")
+                display.insert(0, texto)
+                
+                return
+
+            if app.selecao.get() == "Normal":
+                dms_str = dms_str.replace(".", ",")
+
+            display.delete(0, "end")
+            display.insert(0, dms_str)
+            
+            return
+        else:
+            texto = format_result(resultado, app)
+            display.delete(0, "end")
+            display.insert(0, texto)
+            
+            return
+    else:
+        resultado = eval(expression)
+        var.lastNumber = str(resultado)
+        texto = format_result(resultado, app)
+        display.delete(0, "end")
+        display.insert(0, texto)
+        
+        return
 
 def calcular(display, app):
     try:
@@ -30,6 +95,7 @@ def calcular(display, app):
             expressao = expressao.replace(",", ".")
 
         deg.formatDegrees(expressao, display, app)
+
     except (SyntaxError, ZeroDivisionError, NameError, ValueError, TypeError) as e:
         print(f"Erro: {e}")
         display.delete(0, "end")
