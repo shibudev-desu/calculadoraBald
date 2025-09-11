@@ -1,6 +1,7 @@
 '''
 Aqui é a formatação dos graus
 Faça com que o botão do grau adcione um símbolo de grau (°) ao final do número atual e a função vai reconhecer isso.
+Coloque isso dentro da função de calcular, ele funciona como um eval normal, mas reconhece o símbolo de grau.
 Usar assim:
  from functions.fnNew import formatDegree as fmtDeg
  fmtDeg.formatDegree(expression, app, display)

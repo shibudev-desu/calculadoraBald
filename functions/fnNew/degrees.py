@@ -1,5 +1,12 @@
 # functions/degrees.py
-#
+"""
+Aqui é a conversão de decimais para graus, minutos e segundos.
+Funciona com números negativos e positivos.
+Essa função está dentro da função formatDegree, tenha a certeza de importá-la para o arquivo que formatDegree estiver.
+Usar assim:
+  from functions.fnNew import degrees as deg
+  deg.convertDecimal(value)
+"""
 
 import variables as var
 

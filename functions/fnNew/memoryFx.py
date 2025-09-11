@@ -1,6 +1,17 @@
 import tkinter as tk
 from tkinter import simpledialog, messagebox
-import variables as var
+from functions.fnNew import auxiliar as var
+'''
+Funções de memória: STO, RCL e gerenciamento de slots.
+Coloque as duas funções em um botão.
+O arquivo auxiliar.py também será necessário, pois ele contém o dicionário de slots e funções auxiliares.
+Usar assim:
+  from functions.fnNew import memoryFx as mem
+  mem._sto(display, app)  # Para armazenar
+  mem._rcl(display, app)  # Para recuperar
+  Display é o campo de entrada (Entry) do tkinter
+  app é a instância da classe App (main)
+'''
 
 def valid_slots():
     return var.valid_slots()
