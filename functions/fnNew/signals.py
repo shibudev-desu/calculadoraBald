@@ -1,3 +1,11 @@
+"""
+Aqui é invertido o sinal do número atual no display.
+Display é o texto do campo Entry do tkinter.
+Usar assim:
+  from functions.fnNew import signals as sig
+  sig.swapSignals(display)
+"""
+
 import tkinter as tk
 import variables as var
 import re

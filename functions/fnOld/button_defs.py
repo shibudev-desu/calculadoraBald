@@ -1,9 +1,8 @@
 import tkinter as tk
 from functions.fnNew import operations_def as ops
-from functions.fnNew import degrees as deg
 
 def make_botoes(frame, controller, inserir, limpar_tudo, limpar_ultimo, calcular,
-                nao_implementado, _sto, _rcl, var, changeDisplay):
+                nao_implementado, _sto, _rcl, var, swapSignals):
     return [
         [
             ("", "SHIFT", (lambda: var.shiftTeorico()), 7),
@@ -31,7 +30,7 @@ def make_botoes(frame, controller, inserir, limpar_tudo, limpar_ultimo, calcular
         ],
 
         [
-            ("A", "(-)", (lambda: changeDisplay(frame.display) if not var.AlphaUsado() else nao_implementado()), 7),
+            ("A", "(-)", (lambda: swapSignals(frame.display) if not var.AlphaUsado() else nao_implementado()), 7),
             ("⭠ B", ".,, ,,", (lambda: inserir("°", frame.display)), 7),
             ("hyp", "C", nao_implementado, 7),
             ("sin⁻¹   D", "sin", (lambda: inserir("sin(", frame.display)), 7),
