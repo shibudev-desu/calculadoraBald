@@ -3,28 +3,7 @@ import math
 import re
 
 import variables as var
-from functions import degrees as deg
-
-def format_result(value, app):
-    try:
-        if hasattr(var, "get_round_settings"):
-            mode, digits = var.get_round_settings()
-        else:
-            mode, digits = "norm", 2
-        if mode == "fix":
-            out = f"{value:.{digits}f}"
-        elif mode == "sci":
-            sig = max(1, int(digits))
-            out = f"{value:.{sig}e}"
-        else:
-            out = f"{value:.12g}"
-        if app.selecao.get() == "Normal":
-            out = out.replace(".", ",")
-        return out
-    except Exception:
-        return "Erro"
-
-from functions import degrees as deg
+from functions.fnNew import degrees as deg
 
 def format_result(value, app):
     try:
@@ -150,27 +129,6 @@ def limpar_ultimo(display):
         display.delete(len(atual) - 1)
     else:
         limpar_tudo(display)
-
-
-def format_result(value, app):
-    # safe fallback if rounding helpers aren"t present
-    try:
-        if hasattr(var, "get_round_settings"):
-            mode, digits = var.get_round_settings()
-        else:
-            mode, digits = "norm", 2
-        if mode == "fix":
-            out = f"{value:.{digits}f}"
-        elif mode == "sci":
-            sig = max(1, int(digits))
-            out = f"{value:.{sig}e}"
-        else:
-            out = f"{value:.12g}"
-        if app.selecao.get() == "Normal":
-            out = out.replace(".", ",")
-        return out
-    except Exception:
-        return "Erro"
 
 def calcular_raiz(display):
     try:

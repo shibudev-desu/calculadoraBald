@@ -2,26 +2,7 @@ import tkinter as tk
 import variables as var
 import re
 
-def swapSignals(valor):
-    try:
-        usa_virgula = ("," in valor)
-        v = valor.replace(",", ".")
-        num = float(v)
-
-        if num == 0:
-            return valor
-
-        num *= -1
-        s = str(num).replace(".0", "")
-
-        if usa_virgula:
-            s = s.replace(".", ",")
-        
-        return s
-    except (ValueError, TypeError):
-        return valor
-
-def changeDisplay(display):
+def swapSignals(display):
     try:
         expr = display.get()
         m1 = re.search(r"([+-]?)(\d*+(?:[.,]\d+)?)$", expr)

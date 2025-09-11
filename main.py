@@ -4,10 +4,10 @@ import math
 import random as random
 
 import variables as var
-from functions.memoryFx import _sto, _rcl
-from functions.signals import swapSignals, changeDisplay
-from functions.button_defs import make_botoes
-from functions import operations_def as ops
+from functions.fnNew.memoryFx import _sto, _rcl
+from functions.fnNew.signals import swapSignals
+from functions.fnOld.button_defs import make_botoes
+from functions.fnNew import operations_def as ops
 
 class App(tk.Tk):
     def __init__(self): 
@@ -107,7 +107,7 @@ class Cientifica(tk.Frame):
  
         botoes = make_botoes(self, self.controller,
                              ops.inserir, ops.limpar_tudo, ops.limpar_ultimo, ops.calcular,
-                             ops.nao_implementado, _sto, _rcl, var, changeDisplay)
+                             ops.nao_implementado, _sto, _rcl, var, swapSignals)
 
         for i, linha in enumerate(botoes):
             for j, (texto_superior, texto_principal, funcao, larg) in enumerate(linha):

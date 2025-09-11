@@ -1,6 +1,6 @@
 import tkinter as tk
-from functions import operations_def as ops
-from functions import degrees as deg
+from functions.fnNew import operations_def as ops
+from functions.fnNew import degrees as deg
 
 def make_botoes(frame, controller, inserir, limpar_tudo, limpar_ultimo, calcular,
                 nao_implementado, _sto, _rcl, var, changeDisplay):
