@@ -32,7 +32,7 @@ def make_botoes(frame, controller, inserir, limpar_tudo, limpar_ultimo, calcular
 
         [
             ("A", "(-)", (lambda: changeDisplay(frame.display) if not var.AlphaUsado() else nao_implementado()), 7),
-            ("⭠ B", ".,, ,,", (lambda: deg.add_degree_symbol(frame.display)), 7),
+            ("⭠ B", ".,, ,,", (lambda: inserir("°", frame.display)), 7),
             ("hyp", "C", nao_implementado, 7),
             ("sin⁻¹   D", "sin", (lambda: inserir("sin(", frame.display)), 7),
             ("cos⁻¹ E", "cos", (lambda: inserir("cos(", frame.display)), 7),

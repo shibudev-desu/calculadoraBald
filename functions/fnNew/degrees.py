@@ -1,8 +1,6 @@
 # functions/degrees.py
-import math
-import random
+#
 
-import re
 import variables as var
 
 degreeSign = "°"
@@ -46,27 +44,3 @@ def convertDecimal(value):
   formatted = f"{sign}{degrees}{degreeSign}{minutes}{minuteSign}{sec_str}{secondSign}"
 
   return formatted
-
-def add_degree_symbol(display):
-  try:
-    expr = display.get()
-    m = re.search(r'([-+]?[0-9]+(?:[.,][0-9]+)?)\s*$', expr)
-    
-    if not m:
-      return False
-
-    num = m.group(1)
-    after = expr[m.end(1):]
-    
-    if after.startswith(degreeSign):
-      return False
-
-    nova_expr = expr[:m.end(1)] + degreeSign + expr[m.end(1):]
-    display.delete(0, "end")
-    display.insert(0, nova_expr)
-    var.lastNumber = num
-
-    return True
-  except Exception as e:
-    print(f"Erro em add_degree_symbol: {e}")
-    return False

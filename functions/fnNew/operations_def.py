@@ -1,3 +1,15 @@
+'''
+Aqui é a formatação dos graus
+Faça com que o botão do grau adcione um símbolo de grau (°) ao final do número atual e a função vai reconhecer isso.
+Usar assim:
+ from functions.fnNew import formatDegree as fmtDeg
+ fmtDeg.formatDegree(expression, app, display)
+ expression = string que vai receber a formatação
+ app = instância da classe App (main)
+ display = campo de entrada (Entry) do tkinter
+'''
+
+
 import tkinter as tk
 import math
 import re
