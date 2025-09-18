@@ -5,8 +5,8 @@ def make_botoes(frame, controller, inserir, limpar_tudo, limpar_ultimo, calcular
                 nao_implementado, _sto, _rcl, var, swapSignals):
     return [
         [
-            ("", "SHIFT", (lambda: var.shiftTeorico()), 7),
-            ("", "ALPHA", nao_implementado, 7),
+            ("", "SHIFT", (lambda: var.toggle_shift()), 7),
+            ("", "ALPHA", (lambda: var.toggle_alpha()), 7),
             ("", "REPLAY", nao_implementado, 7),
             ("CLR", "MODE", nao_implementado, 7),
             ("", "ON", (lambda: limpar_tudo(frame.display)), 7)

@@ -1,6 +1,18 @@
-shift = 0
-alpha = 0
+import functions.fnStranger.Lucas as batch1
 
+# Replay
+# Deve ter algumas variáveis criadas:
+
+# Histórico para replay
+historico = []  # cada item será (numero1, numero2, operacao, resultado)
+indice_historico = -1  # começa no último item do histórico
+
+# Para o cursor de edição
+posicao_cursor = 0  
+modo_cursor = False  
+
+shift = False
+alpha = False
 # talvez útil manter último número digitado
 lastNumber = "0"
 
@@ -23,26 +35,10 @@ def set_round_digits(n: int):
     except Exception:
         pass
 
-def shiftTeorico():
-    global shift
-    shift = 1
-
 def toggle_shift():
-    shiftTeorico()
-    print("SHIFT set for next operation")
-
-def ShiftUsado():
     global shift
-    v = shift
-    shift = 0
-    return v
+    shift = batch1.toggle_shift(shift)
 
-def shiftAlpha():
+def toggle_alpha():
     global alpha
-    alpha = 1
-
-def AlphaUsado():
-    global alpha
-    v = alpha
-    alpha = 0
-    return v
+    alpha = batch1.toggle_alpha(alpha)
