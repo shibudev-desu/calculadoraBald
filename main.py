@@ -1,13 +1,12 @@
 import tkinter as tk 
 from tkinter import ttk 
-import math 
 import random as random
 
 import variables as var
 from functions.fnNew.memoryFx import _sto, _rcl
 from functions.fnNew.signals import swapSignals
 from functions.fnOld.button_defs import make_botoes
-from functions.fnNew import operations_def as ops
+from functions.fnOld import all as operationals
 
 class App(tk.Tk):
     def __init__(self): 
@@ -70,11 +69,11 @@ class Normal(tk.Frame):
         self.display.grid(row=0, column=0, columnspan=4, padx=10, pady=(10, 20), sticky="nsew") 
  
         botoes = [ 
-            [("%", lambda: ops.inserir("%", self.display)), ("CE", lambda: ops.limpar_tudo(self.display)), ("⌫", lambda: ops.limpar_ultimo(self.display)), ("÷", lambda: ops.inserir("÷", self.display))], 
-            [("7", lambda: ops.inserir("7", self.display)), ("8", lambda: ops.inserir("8", self.display)), ("9", lambda: ops.inserir("9", self.display)), ("×", lambda: ops.inserir("×", self.display))], 
-            [("4", lambda: ops.inserir("4", self.display)), ("5", lambda: ops.inserir("5", self.display)), ("6", lambda: ops.inserir("6", self.display)), ("−", lambda: ops.inserir("-", self.display))], 
-            [("1", lambda: ops.inserir("1", self.display)), ("2", lambda: ops.inserir("2", self.display)), ("3", lambda: ops.inserir("3", self.display)), ("+", lambda: ops.inserir("+", self.display))], 
-            [("0", lambda: ops.inserir("0", self.display)), (",", lambda: ops.inserir(",", self.display)), ("=", lambda: ops.calcular(self.display, self.controller))] 
+            [("%", lambda: operationals.inserir("%", self.display)), ("CE", lambda: operationals.limpar_tudo(self.display)), ("⌫", lambda: operationals.limpar_ultimo(self.display)), ("÷", lambda: operationals.inserir("÷", self.display))], 
+            [("7", lambda: operationals.inserir("7", self.display)), ("8", lambda: operationals.inserir("8", self.display)), ("9", lambda: operationals.inserir("9", self.display)), ("×", lambda: operationals.inserir("×", self.display))], 
+            [("4", lambda: operationals.inserir("4", self.display)), ("5", lambda: operationals.inserir("5", self.display)), ("6", lambda: operationals.inserir("6", self.display)), ("−", lambda: operationals.inserir("-", self.display))], 
+            [("1", lambda: operationals.inserir("1", self.display)), ("2", lambda: operationals.inserir("2", self.display)), ("3", lambda: operationals.inserir("3", self.display)), ("+", lambda: operationals.inserir("+", self.display))], 
+            [("0", lambda: operationals.inserir("0", self.display)), (",", lambda: operationals.inserir(",", self.display)), ("=", lambda: operationals.calcular(self.display, self.controller))] 
         ] 
   
         for i, linha in enumerate(botoes): 
@@ -106,8 +105,8 @@ class Cientifica(tk.Frame):
         self.display.grid(row=0, column=0, columnspan=5, padx=10, pady=(10, 20), sticky="nsew") 
  
         botoes = make_botoes(self, self.controller,
-                             ops.inserir, ops.limpar_tudo, ops.limpar_ultimo, ops.calcular,
-                             ops.nao_implementado, _sto, _rcl, var, swapSignals)
+                             operationals.inserir, operationals.limpar_tudo, operationals.limpar_ultimo, operationals.calcular,
+                             operationals.nao_implementado, _sto, _rcl, var, swapSignals)
 
         for i, linha in enumerate(botoes):
             for j, (texto_superior, texto_principal, funcao, larg) in enumerate(linha):

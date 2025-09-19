@@ -3,6 +3,7 @@ import math
 import re
 import variables as var
 from functions.fnNew import degrees as deg
+from functions.fnNew import operations_def as ops
 
 def calcular(display, app):
     try:
@@ -27,7 +28,7 @@ def calcular(display, app):
         if app.selecao.get() == "Normal":
             expressao = expressao.replace(",", ".")
 
-        formatDegree(expressao, app, display)
+        ops.formatDegree(expressao, app, display)
 
     except (SyntaxError, ZeroDivisionError, NameError, ValueError, TypeError) as e:
         print(f"Erro: {e}")
