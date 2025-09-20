@@ -37,8 +37,14 @@ def set_round_digits(n: int):
 
 def toggle_shift():
     global shift
+    print(f"Shift before: {shift}")
     shift = batch1.toggle_shift(shift)
+    print(f"Shift: {shift}")
 
 def toggle_alpha():
     global alpha
+    print(f"Alpha before: {alpha}")
     alpha = batch1.toggle_alpha(alpha)
+    print(f"Alpha: {alpha}")
+
+    

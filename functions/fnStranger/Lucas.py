@@ -1,8 +1,10 @@
 def toggle_shift(shift):
     shift = not shift
+    return shift
 
 def toggle_alpha(alpha):
     alpha = not alpha
+    return alpha
 
 # função que fizemos para alterar nosso painel e mudar os números pelas setas
 def atualizar_painel_cursor(painel):

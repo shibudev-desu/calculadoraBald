@@ -72,8 +72,8 @@ def make_botoes(frame, controller, inserir, limpar_tudo, limpar_ultimo, calcular
         ],
 
         [
-            ("Rnd", "0", (lambda: inserir("Rnd(", frame.display) if var.ShiftUsado() else inserir("0", frame.display)), 7),
-            ("Ran#", ".", (lambda: inserir("Ran#(", frame.display) if var.ShiftUsado() else inserir(".", frame.display)), 7),
+            ("Rnd", "0", (lambda: inserir("Rnd(", frame.display) if var.shift == True else inserir("0", frame.display)), 7),
+            ("Ran#", ".", (lambda: inserir("Ran#(", frame.display) if var.shift == True else inserir(".", frame.display)), 7),
             ("π", "EXP", nao_implementado, 7),
             ("DRG+", "Ans", nao_implementado, 7),
             ("%", "=", (lambda: calcular(frame.display, controller)), 7)
