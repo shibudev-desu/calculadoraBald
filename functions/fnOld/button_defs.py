@@ -20,7 +20,7 @@ def make_botoes(frame, controller, inserir, limpar_tudo, limpar_ultimo, calcular
             ("nPr", "nCr", nao_implementado, 12),
             ("   ", "    ", nao_implementado, 12),
             ("Rec( :", "Pol(", nao_implementado, 12),
-            ("³√", "x³", (lambda: ops.ao_cubo(frame.display)), 12)
+            ("³√", "x³", (lambda: a.calc_cubo(frame.display) if not var.shift else a.calc_raiz_cubica(frame.display)), 12)
         ],
 
         [
