@@ -1,14 +1,17 @@
 import tkinter as tk
 
+import variables as var
+
+# Implementado.
 def toggle_shift(shift):
     shift = not shift
     return shift
 
+#Implementado.
 def toggle_alpha(alpha):
     alpha = not alpha
     return alpha
 
-# função que fizemos para alterar nosso painel e mudar os números pelas setas
 def atualizar_painel_cursor(painel):
     global numero1, numero2, operacao, posicao_cursor # aqui obtemos valores do nosso painel
     texto = ""
@@ -17,14 +20,14 @@ def atualizar_painel_cursor(painel):
     else:
         n = numero2
 
-    # Inserindo o cursor
+    
     if posicao_cursor > len(n):
         posicao = len(n)
     else:
         posicao = posicao_cursor
     texto_cursor = n[:posicao] + "|" + n[posicao:]
 
-    # configurando nosso painel
+    
     if operacao == "":
         painel.config(text=texto_cursor)
     else:
@@ -38,7 +41,7 @@ def replay_cima(painel):
         elif indice_historico > 0:
             indice_historico -= 1
         resultado = historico[indice_historico][3]
-        painel.config(text=resultado) # configurando nosso painel (podem alterar caso precise)
+        painel.config(text=resultado)
 
 def replay_baixo(painel):
     global indice_historico, historico
@@ -48,9 +51,9 @@ def replay_baixo(painel):
         elif indice_historico < len(historico) - 1:
             indice_historico += 1
         resultado = historico[indice_historico][3]
-        painel.config(text=resultado) # configurando nosso painel (podem alterar caso precise)
+        painel.config(text=resultado)
 
-def replay_esquerda():  # ←
+def replay_esquerda():
     global posicao_cursor, modo_cursor
     modo_cursor = True
     if operacao == "":
@@ -72,19 +75,26 @@ def replay_direita():  # →
             posicao_cursor += 1
     atualizar_painel_cursor()
 
-# M+, M- e M
-# Deve ter algumas variáveis criadas, além do Shift e Alpha, é necessário criar:
+def formatar_numero(valor):
+    try:
+        float_valor = float(valor)
+        if float_valor.is_integer():
+            return f"{int(float_valor):,}".replace(",", ".")
+        else:
+            return str(float_valor).replace(".", ",")
+    except ValueError:
+        return str(valor).replace(".", ",")
 
-# Valor global da memória
 memoria = 0
 
+# Implementado.
 def func_m_plus():
-    global memoria, numero1, numero2, operacao, resultado, shift, alpha # aqui obtemos valores do nosso painel
+    global memoria, numero1, numero2, operacao, resultado, shift, alpha
 
     try:
-        if alpha:
+        if var.alpha:
             # Recupera o valor da memória
-            painel.config(text=f"Memória: {formatar_numero(memoria)} (MR)") # muda nosso painel (altere do seu modo se necessário)
+            painel.config(text=f"Memória: {formatar_numero(memoria)} (MR)")
             return
 
         if operacao == "":
@@ -92,22 +102,18 @@ def func_m_plus():
         else:
             valor = float(numero2.replace(",", "."))
 
-        if shift:
+        if var.shift:
             memoria -= valor
-            painel.config(text=f"Memória: {formatar_numero(memoria)} (M-)") # muda nosso painel (altere do seu modo se necessário)
+            painel.config(text=f"Memória: {formatar_numero(memoria)} (M-)")
         else:
             memoria += valor
-            painel.config(text=f"Memória: {formatar_numero(memoria)} (M+)") # muda nosso painel (altere do seu modo se necessário)
+            painel.config(text=f"Memória: {formatar_numero(memoria)} (M+)")
     except ValueError:
-        painel.config(text="Erro!") # muda nosso painel (altere do seu modo se necessário)
+        painel.config(text="Erro!")
 
-# Mode
-# Deve ser criada uma variável:
-
-current_mode = "COMP"  # padrão inicial = cálculo normal
+current_mode = "COMP"
 
 # Implementado
-
 def toggle_mode(root):
     global current_mode
 
@@ -129,7 +135,3 @@ def toggle_mode(root):
     tk.Button(mode_window, text="1. COMP (Normal)", width=20, command=lambda: set_mode("COMP")).pack(pady=5)
     tk.Button(mode_window, text="2. STAT (Estatística)", width=20, command=lambda: set_mode("STAT")).pack(pady=5)
     tk.Button(mode_window, text="3. TABLE (Tabela)", width=20, command=lambda: set_mode("TABLE")).pack(pady=5)
-    # Assim mudamos a variável e o tipo da calculadora
-
-# Mais infos:
-# Caso precisem, podemos enviar como está nossa calculadora para ser mais entendível como obtemos números e posições deles em nosso painel.
