@@ -1,3 +1,4 @@
+# Algo
 '''
 Aqui é a formatação dos graus
 Faça com que o botão do grau adcione um símbolo de grau (°) ao final do número atual e a função vai reconhecer isso.

@@ -1,3 +1,4 @@
+# Algo
 memory_slots = {
   "A": "0",
   "B": "0",

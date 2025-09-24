@@ -1,3 +1,4 @@
+# Algo
 import tkinter as tk
 from tkinter import simpledialog, messagebox
 from functions.fnNew import auxiliar as var

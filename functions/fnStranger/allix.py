@@ -1,3 +1,4 @@
+# Algo
 import math
 
 # -------- Variáveis globais --------
