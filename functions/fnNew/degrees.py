@@ -1,5 +1,4 @@
 # functions/degrees.py
-# Algo
 """
 Aqui é a conversão de decimais para graus, minutos e segundos.
 Funciona com números negativos e positivos.

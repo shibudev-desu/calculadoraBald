@@ -1,4 +1,3 @@
-# Algo
 import tkinter as tk
 
 def toggle_shift(shift):

@@ -1,4 +1,3 @@
-# Algo
 """
 Aqui é invertido o sinal do número atual no display.
 Display é o texto do campo Entry do tkinter.

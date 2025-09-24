@@ -1,4 +1,3 @@
-# Algo
 import tkinter as tk
 from functions.fnNew import operations_def as ops
 from functions.fnStranger import Lucas as l
