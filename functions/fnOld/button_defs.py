@@ -1,6 +1,7 @@
 import tkinter as tk
 from functions.fnNew import operations_def as ops
 from functions.fnStranger import Lucas as l
+from functions.fnStranger import allix as a
 
 def make_botoes(frame, controller, inserir, limpar_tudo, limpar_ultimo, calcular,
                 nao_implementado, _sto, _rcl, var, swapSignals):
@@ -9,7 +10,8 @@ def make_botoes(frame, controller, inserir, limpar_tudo, limpar_ultimo, calcular
             ("", "SHIFT", (lambda: var.toggle_shift()), 7),
             ("", "ALPHA", (lambda: var.toggle_alpha()), 7),
             ("", "REPLAY", nao_implementado, 7),
-            ("CLR", "MODE", (lambda: l.toggle_mode(frame.display)), 7),
+            # frame.display??
+            ("CLR", "MODE", (lambda: l.toggle_mode(frame)), 7),
             ("", "ON", (lambda: limpar_tudo(frame.display)), 7)
         ],
 
@@ -31,7 +33,7 @@ def make_botoes(frame, controller, inserir, limpar_tudo, limpar_ultimo, calcular
         ],
 
         [
-            ("A", "(-)", (lambda: swapSignals(frame.display) if not var.AlphaUsado() else nao_implementado()), 7),
+            ("A", "(-)", (lambda: swapSignals(frame.display)), 7),
             ("⭠ B", ".,, ,,", (lambda: inserir("°", frame.display)), 7),
             ("hyp", "C", nao_implementado, 7),
             ("sin⁻¹   D", "sin", (lambda: inserir("sin(", frame.display)), 7),
@@ -40,11 +42,11 @@ def make_botoes(frame, controller, inserir, limpar_tudo, limpar_ultimo, calcular
         ],
 
         [
-            ("STO", "RCL", (lambda: _sto(frame.display, controller) if var.ShiftUsado() else _rcl(frame.display, controller)), 7),
+            ("STO", "RCL", (lambda: _sto(frame.display, controller) if var.shift == True else _rcl(frame.display, controller)), 7),
             ("⭠", "ENG", nao_implementado, 7),
             ("", "(", (lambda: inserir("(", frame.display)), 7),
             ("x", ")", (lambda: inserir(")", frame.display)), 7),
-            (":     Y", ",", (lambda: inserir(":", frame.display) if var.ShiftUsado() else inserir(",", frame.display)), 7),
+            (":     Y", ",", (lambda: inserir(":", frame.display) if var.shift == True() else inserir(",", frame.display)), 7),
             ("M- M", "M+", nao_implementado, 7)
         ],
 
