@@ -9,7 +9,7 @@ indice_historico = -1  # começa no último item do histórico
 
 # Para o cursor de edição
 posicao_cursor = 0  
-modo_cursor = False  
+modo_cursor = False
 
 shift = False
 alpha = False

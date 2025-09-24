@@ -1,5 +1,6 @@
 import tkinter as tk
 from functions.fnNew import operations_def as ops
+from functions.fnStranger import Lucas as l
 
 def make_botoes(frame, controller, inserir, limpar_tudo, limpar_ultimo, calcular,
                 nao_implementado, _sto, _rcl, var, swapSignals):
@@ -8,7 +9,7 @@ def make_botoes(frame, controller, inserir, limpar_tudo, limpar_ultimo, calcular
             ("", "SHIFT", (lambda: var.toggle_shift()), 7),
             ("", "ALPHA", (lambda: var.toggle_alpha()), 7),
             ("", "REPLAY", nao_implementado, 7),
-            ("CLR", "MODE", nao_implementado, 7),
+            ("CLR", "MODE", (lambda: l.toggle_mode(frame.display)), 7),
             ("", "ON", (lambda: limpar_tudo(frame.display)), 7)
         ],
 
