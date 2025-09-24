@@ -1,81 +1,84 @@
 import tkinter as tk
-from functions.fnNew import operations_def as ops
+from functions.fnOld import all as ops
+from functions.fnStranger import matheus as mth
+from functions.fnNew.memoryFx import _sto, _rcl
+from functions.fnNew.signals import swapSignals
+import variables as var
 
-def make_botoes(frame, controller, inserir, limpar_tudo, limpar_ultimo, calcular,
-                nao_implementado, _sto, _rcl, var, swapSignals):
+def make_botoes(frame, controller):
     return [
         [
             ("", "SHIFT", (lambda: var.toggle_shift()), 7),
             ("", "ALPHA", (lambda: var.toggle_alpha()), 7),
-            ("", "REPLAY", nao_implementado, 7),
-            ("CLR", "MODE", nao_implementado, 7),
-            ("", "ON", (lambda: limpar_tudo(frame.display)), 7)
+            ("", "REPLAY", ops.nao_implementado, 7),
+            ("CLR", "MODE", ops.nao_implementado, 7),
+            ("", "ON", (lambda: ops.limpar_tudo(frame.display)), 7)
         ],
 
         [
             ("x!", "x⁻¹", (lambda: ops.um_sobre_x(frame.display)), 12),
-            ("nPr", "nCr", nao_implementado, 12),
-            ("   ", "    ", nao_implementado, 12),
-            ("Rec( :", "Pol(", nao_implementado, 12),
+            ("nPr", "nCr", ops.nao_implementado, 12),
+            ("   ", "    ", ops.nao_implementado, 12),
+            ("Rec( :", "Pol(", ops.nao_implementado, 12),
             ("³√", "x³", (lambda: ops.ao_cubo(frame.display)), 12)
         ],
 
         [
-            ("d/c", "ab/c", nao_implementado, 7),
+            ("d/c", "ab/c", ops.nao_implementado, 7),
             ("", "√", (lambda: ops.calcular_raiz(frame.display)), 7),
             ("", "x²", (lambda: ops.ao_quadrado(frame.display)), 7),
-            ("x√", "^", (lambda: inserir("^", frame.display)), 7),
-            ("10^", "log", (lambda: inserir("log(", frame.display)), 7),
-            ("e^ e", "ln", (lambda: inserir("ln(", frame.display)), 7)
+            ("x√", "^", (lambda: ops.inserir("^", frame.display)), 7),
+            ("10^", "log", (lambda: ops.inserir("log(", frame.display)), 7),
+            ("e^ e", "ln", (lambda: ops.inserir("ln(", frame.display)), 7)
         ],
 
         [
-            ("A", "(-)", (lambda: swapSignals(frame.display) if not var.AlphaUsado() else nao_implementado()), 7),
-            ("⭠ B", ".,, ,,", (lambda: inserir("°", frame.display)), 7),
-            ("hyp", "C", nao_implementado, 7),
-            ("sin⁻¹   D", "sin", (lambda: inserir("sin(", frame.display)), 7),
-            ("cos⁻¹ E", "cos", (lambda: inserir("cos(", frame.display)), 7),
-            ("tan⁻¹ F", "tan", (lambda: inserir("tan(", frame.display)), 7)
+            ("A", "(-)", (lambda: swapSignals(frame.display) if not var.AlphaUsado() else ops.nao_implementado()), 7),
+            ("⭠ B", ".,, ,,", (lambda: ops.inserir("°", frame.display)), 7),
+            ("hyp", "C", ops.nao_implementado, 7),
+            ("sin⁻¹   D", "sin", (lambda: ops.inserir("sin(", frame.display)), 7),
+            ("cos⁻¹ E", "cos", (lambda: ops.inserir("cos(", frame.display)), 7),
+            ("tan⁻¹ F", "tan", (lambda: ops.inserir("tan(", frame.display)), 7)
         ],
 
         [
             ("STO", "RCL", (lambda: _sto(frame.display, controller) if var.ShiftUsado() else _rcl(frame.display, controller)), 7),
-            ("⭠", "ENG", nao_implementado, 7),
-            ("", "(", (lambda: inserir("(", frame.display)), 7),
-            ("x", ")", (lambda: inserir(")", frame.display)), 7),
-            (":     Y", ",", (lambda: inserir(":", frame.display) if var.ShiftUsado() else inserir(",", frame.display)), 7),
-            ("M- M", "M+", nao_implementado, 7)
+            ("⭠", "ENG", ops.nao_implementado, 7),
+            ("", "(", (lambda: ops.inserir("(", frame.display)), 7),
+            ("x", ")", (lambda: ops.inserir(")", frame.display)), 7),
+            (":     Y", ",", (lambda: ops.inserir(":", frame.display) if var.ShiftUsado() else ops.inserir(",", frame.display)), 7),
+            ("M- M", "M+", ops.nao_implementado, 7)
         ],
 
         [
-            ("", "7", (lambda: inserir("7", frame.display)), 7),
-            ("", "8", (lambda: inserir("8", frame.display)), 7),
-            ("", "9", (lambda: inserir("9", frame.display)), 7),
-            ("INS", "DEL", nao_implementado, 7),
-            ("OFF", "AC", nao_implementado, 7)
+            ("", "7", (lambda: ops.inserir("7", frame.display)), 7),
+            ("", "8", (lambda: ops.inserir("8", frame.display)), 7),
+            ("", "9", (lambda: ops.inserir("9", frame.display)), 7),
+            ("INS", "DEL", ops.nao_implementado, 7),
+            ("OFF", "AC", ops.nao_implementado, 7)
         ],
 
         [
-            ("", "4", (lambda: inserir("4", frame.display)), 7),
-            ("", "5", (lambda: inserir("5", frame.display)), 7),
-            ("", "6", (lambda: inserir("6", frame.display)), 7),
-            ("", "×", (lambda: inserir("×", frame.display)), 7),
-            ("", "÷", (lambda: inserir("÷", frame.display)), 7)
+            ("", "4", (lambda: ops.inserir("4", frame.display)), 7),
+            ("", "5", (lambda: ops.inserir("5", frame.display)), 7),
+            ("", "6", (lambda: ops.inserir("6", frame.display)), 7),
+            ("", "×", (lambda: ops.inserir("×", frame.display)), 7),
+            ("", "÷", (lambda: ops.inserir("÷", frame.display)), 7)
         ],
 
         [
-            ("S-SUM", "1", (lambda: inserir("1", frame.display)), 7),
-            ("SVAR", "2", (lambda: inserir("2", frame.display)), 7),
-            ("", "3", (lambda: inserir("3", frame.display)), 7),
-            ("", "+", (lambda: inserir("+", frame.display)), 7),
-            ("", "-", (lambda: inserir("-", frame.display)), 7)
+            ("S-SUM", "1", (lambda: ops.inserir("1", frame.display) if var.shift == False else mth.ativar_menu_s_sum()), 7),
+            ("SVAR", "2", (lambda: ops.inserir("2", frame.display) if var.shift == False else mth.ativar_menu_s_var()), 7),
+            ("", "3", (lambda: ops.inserir("3", frame.display)), 7),
+            ("", "+", (lambda: ops.inserir("+", frame.display)), 7),
+            ("", "-", (lambda: ops.inserir("-", frame.display)), 7)
         ],
 
         [
-            ("Rnd", "0", (lambda: inserir("Rnd(", frame.display) if var.shift == True else inserir("0", frame.display)), 7),
-            ("Ran#", ".", (lambda: inserir("Ran#(", frame.display) if var.shift == True else inserir(".", frame.display)), 7),
-            ("π", "EXP", nao_implementado, 7),
-            ("DRG+", "Ans", nao_implementado, 7),
-            ("%", "=", (lambda: calcular(frame.display, controller)), 7)
+            ("Rnd", "0", (lambda: ops.inserir("Rnd(", frame.display) if var.shift == True else ops.inserir("0", frame.display)), 7),
+            ("Ran#", ".", (lambda: ops.inserir("Ran#(", frame.display) if var.shift == True else ops.inserir(".", frame.display)), 7),
+            ("π", "EXP", ops.nao_implementado, 7),
+            ("DRG+", "Ans", (lambda: ops.nao_implementado, 7 if var.shift == False else mth.ativar_menu_drg(frame.display)), 7),
+            ("%", "=", (lambda: ops.calcular(frame.display, controller)), 7)
         ]
     ]
