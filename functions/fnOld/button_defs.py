@@ -16,7 +16,7 @@ def make_botoes(frame, controller, inserir, limpar_tudo, limpar_ultimo, calcular
         ],
 
         [
-            ("x!", "x⁻¹", (lambda: ops.um_sobre_x(frame.display)), 12),
+            ("x!", "x⁻¹", (lambda: a.calc_inverso(frame.display) if not var.shift else a.calc_fatorial(frame.display)), 12),
             ("nPr", "nCr", nao_implementado, 12),
             ("   ", "    ", nao_implementado, 12),
             ("Rec( :", "Pol(", nao_implementado, 12),
@@ -25,18 +25,18 @@ def make_botoes(frame, controller, inserir, limpar_tudo, limpar_ultimo, calcular
 
         [
             ("d/c", "ab/c", nao_implementado, 7),
-            ("", "√", (lambda: ops.calcular_raiz(frame.display)), 7),
-            ("", "x²", (lambda: ops.ao_quadrado(frame.display)), 7),
-            ("x√", "^", (lambda: inserir("^", frame.display)), 7),
+            ("", "√", (lambda: a.calc_raiz(frame.display)), 7),
+            ("", "x²", (lambda: a.calc_quadrado(frame.display)), 7),
+            ("x√", "^", (lambda: a.calc_radiciacao(frame.display)), 7),
             ("10^", "log", (lambda: inserir("log(", frame.display)), 7),
-            ("e^ e", "ln", (lambda: inserir("ln(", frame.display)), 7)
+            ("e^e", "ln", (lambda: inserir("ln(", frame.display) if var.shift == True else a.calc_exponenciacao(frame.display)), 7)
         ],
 
         [
             ("A", "(-)", (lambda: swapSignals(frame.display)), 7),
             ("⭠ B", ".,, ,,", (lambda: inserir("°", frame.display)), 7),
             ("hyp", "C", nao_implementado, 7),
-            ("sin⁻¹   D", "sin", (lambda: inserir("sin(", frame.display)), 7),
+            ("sin⁻¹ D", "sin", (lambda: inserir("sin(", frame.display)), 7),
             ("cos⁻¹ E", "cos", (lambda: inserir("cos(", frame.display)), 7),
             ("tan⁻¹ F", "tan", (lambda: inserir("tan(", frame.display)), 7)
         ],

@@ -32,18 +32,21 @@ def reset_values(result):
     operation = [result, "#", 0]
     aIndex = 0
 
+# Implementado
 def calc_raiz(obj):
     n = float("".join(values)) if values[0] != "#" else 0
     res = math.sqrt(n)
     obj.set(str(res))
     reset_values(res)
 
+# Implementado
 def calc_raiz_cubica(obj):
     n = float("".join(values)) if values[0] != "#" else 0
     res = n ** (1/3)
     obj.set(str(res))
     reset_values(res)
 
+# Implementado
 def calc_radiciacao(obj):
     global values, operation, aIndex
     # Se já existe uma operação de rad aguardando o radicando
@@ -65,7 +68,7 @@ def calc_radiciacao(obj):
         values[:] = ["#"]
         obj.set(str(indice) + "√")
 
-
+# Implementado
 def calc_inverso(obj):
     n = float("".join(values)) if values[0] != "#" else 0
     if n == 0:
@@ -75,7 +78,8 @@ def calc_inverso(obj):
     obj.set(str(res))
     if res != "Erro":
         reset_values(res)
-        
+
+# Implementado
 def calc_fatorial(obj):
     n = int(float("".join(values))) if values[0] != "#" else 0
     res = math.factorial(n) if n >= 0 else "Erro"
@@ -83,18 +87,21 @@ def calc_fatorial(obj):
     if res != "Erro":
         reset_values(res)
 
+# Implementado
 def calc_quadrado(obj):
     n = float("".join(values)) if values[0] != "#" else 0
     res = n**2
     obj.set(str(res))
     reset_values(res)
 
+# Implementado
 def calc_cubo(obj):
     n = float("".join(values)) if values[0] != "#" else 0
     res = n**3
     obj.set(str(res))
     reset_values(res)
 
+# Implementado
 def calc_exponenciacao(obj):
     global values, operation, aIndex
     # Se já existe uma operação com ^ aguardando o expoente
