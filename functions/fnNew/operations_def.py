@@ -89,12 +89,10 @@ def formatDegree(expression, app, display):
         
         return
 
-def formatRand(app, display):
-    raw = display.get()
-
-    expressao = (raw
+def formatRand(expression, app, display):
+    expressao = (expression
         .replace("Rnd(", "random.random(")
     )
-    print(expressao)
 
+    print(expressao)
     formatDegree(expressao, app, display)

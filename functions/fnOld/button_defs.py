@@ -46,7 +46,7 @@ def make_botoes(frame, controller, inserir, limpar_tudo, limpar_ultimo, calcular
             ("⭠", "ENG", nao_implementado, 7),
             ("", "(", (lambda: inserir("(", frame.display)), 7),
             ("x", ")", (lambda: inserir(")", frame.display)), 7),
-            (":     Y", ",", (lambda: inserir(":", frame.display) if var.shift == True() else inserir(",", frame.display)), 7),
+            (":     Y", ",", (lambda: inserir(":" , frame.display) if var.shift is True else inserir(",", frame.display)), 7),
             ("M- M", "M+", nao_implementado, 7)
         ],
 

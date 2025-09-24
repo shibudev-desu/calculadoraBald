@@ -68,7 +68,7 @@ class Normal(tk.Frame):
         self.display.insert(0, "0") 
         self.display.grid(row=0, column=0, columnspan=4, padx=10, pady=(10, 20), sticky="nsew") 
  
-        botoes = [ 
+        botoes = [
             [("%", lambda: operationals.inserir("%", self.display)), ("CE", lambda: operationals.limpar_tudo(self.display)), ("⌫", lambda: operationals.limpar_ultimo(self.display)), ("÷", lambda: operationals.inserir("÷", self.display))], 
             [("7", lambda: operationals.inserir("7", self.display)), ("8", lambda: operationals.inserir("8", self.display)), ("9", lambda: operationals.inserir("9", self.display)), ("×", lambda: operationals.inserir("×", self.display))], 
             [("4", lambda: operationals.inserir("4", self.display)), ("5", lambda: operationals.inserir("5", self.display)), ("6", lambda: operationals.inserir("6", self.display)), ("−", lambda: operationals.inserir("-", self.display))], 
