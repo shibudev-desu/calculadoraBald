@@ -9,7 +9,7 @@ from functions.fnStranger import matheus as mth
 def calcular(display, app):
     try:
         raw = display.get()
-        print(raw)
+
         expressao = (raw
             .replace("×", "*")
             .replace("÷", "/")
@@ -25,7 +25,6 @@ def calcular(display, app):
             .replace("Ran#(", "random.uniform(0, ")
             .replace("^", "**")
         )
-        print(expressao)
 
         if app.selecao.get() == "Normal":
             expressao = expressao.replace(",", ".")
