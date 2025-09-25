@@ -4,6 +4,7 @@ import re
 import variables as var
 from functions.fnNew import degrees as deg
 from functions.fnNew import operations_def as ops
+from functions.fnStranger import matheus as mth
 
 def calcular(display, app):
     try:

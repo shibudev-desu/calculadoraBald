@@ -104,9 +104,7 @@ class Cientifica(tk.Frame):
         self.display.insert(0, "0") 
         self.display.grid(row=0, column=0, columnspan=5, padx=10, pady=(10, 20), sticky="nsew") 
  
-        botoes = make_botoes(self, self.controller,
-                             operationals.inserir, operationals.limpar_tudo, operationals.limpar_ultimo, operationals.calcular,
-                             operationals.nao_implementado, _sto, _rcl, var, swapSignals)
+        botoes = make_botoes(self, self.controller)
 
         for i, linha in enumerate(botoes):
             for j, (texto_superior, texto_principal, funcao, larg) in enumerate(linha):

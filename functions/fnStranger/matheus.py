@@ -5,24 +5,33 @@ import math
 import ast
 import operator as op
 import re
+from functions.fnOld import all as fns
+
+# Implementados:
+# ativar_menu_s_var
+# ativar_menu_s_sum
+# ativar_menu_drg
+# inserir_numero
+# todos os "Inserir" [cos, sin, pi, tan, exp, h, ans]
+
 menu_s_sum_ativo = False
 menu_s_var_ativo = False
 mplus = [2, 4, 6, 8]  # Lista de valores para testes mudar para quando fizeram o mplus(e de outro grupo por isso valores testes)
 #DISPLAY QUER DIZER O NOME DO SEU DISPLAY.
 #NUMBER1 É UMA VARIAVEL QUE VAI GUARDAR A EQUACAO QUE ESTA SENDO FEITA, EXPLICANDO MELHOR O DISPLAY MOSTRA O VALOR DE NUMBER1
-def ativar_menu_s_var():
-    limpar()  # Limpa a entrada atual
+def ativar_menu_s_var(Display):
+    fns.limpar_tudo(Display)()  # Limpa a entrada atual
     global menu_s_var_ativo
     menu_s_var_ativo = True  # Ativa flag indicando que o menu S-VAR está ativo
     Display.set("1-x̅   2-xσn   3-xσn-1")  # Mostra as opções no display
 
-def ativar_menu_s_sum():
-    limpar()
+def ativar_menu_s_sum(Display):
+    fns.limpar_tudo(Display)()
     global menu_s_sum_ativo
     menu_s_sum_ativo = True
     Display.set("1-Σx    2-Σx²   3-n")
 
-def ativar_menu_drg():
+def ativar_menu_drg(Display):
     """Ativa o menu DRG quando Shift + Ans é pressionado"""
     global menu_drg_ativo, shift
     menu_drg_ativo = True  # Ativa flag indicando que o menu DRG está ativo
@@ -360,23 +369,9 @@ def processar_completo(conta):
     
     return conta
 
-# PARA DEIXAR BEM CLARO ESSE TRECHO DE CODIGO DEVE SER COLOCADO NO JEITO QUE VOCE USOU PARA ADICIONAR O NUMERO, PQ TEM VERIFICAR SE OS PRECIONADOS
-#  SAO 1 ou 2 ou 3 ENTAO QUANDO O VALUE FOR 1 FAZER NO LOCAL QUE VOCE ADICIONA O NUMERO 1 O MEU GRUPO FEZ UMA FUNCAO INTEIRA SO DE ADICIONAR NUMERO
-#  ENTAOVERIFICAR ISSO
+
 def inserir_numero(value):
     global Number1, virgulas, menu_drg_ativo, menu_s_sum_ativo,shift,menu_s_var_ativo
-    
-    
-    
-    if shift and value == 1:
-        ativar_menu_s_sum()
-        shift = False 
-        return
-
-    if shift and value == 2:
-            ativar_menu_s_var()
-            shift = False
-            return
     if menu_s_sum_ativo:
         if value == 1:
             Number1 = str(fnSoma_x())   
