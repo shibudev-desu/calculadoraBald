@@ -94,5 +94,4 @@ def formatRand(expression, app, display):
         .replace("Rnd(", "random.random(")
     )
 
-    print(expressao)
     formatDegree(expressao, app, display)

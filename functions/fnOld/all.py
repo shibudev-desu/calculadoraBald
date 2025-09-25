@@ -28,6 +28,7 @@ def calcular(display, app):
             .replace("Ran#(", "random.uniform(0, ")
             .replace("^", "**")
         )
+
         if app.selecao.get() == "Normal":
             expressao = expressao.replace(",", ".")
 

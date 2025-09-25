@@ -46,7 +46,7 @@ def calc_raiz_cubica(obj):
 
 def calc_radiciacao(obj):
     global values, operation, aIndex
-    # Se já existe uma operação de rad aguardando o radicando
+    
     if operation[1] == "rad" and values[0] != "#":
         radicando = float("".join(values))
         indice = operation[0]
@@ -64,7 +64,6 @@ def calc_radiciacao(obj):
         operation[1] = "rad"
         values[:] = ["#"]
         obj.set(str(indice) + "√")
-
 
 def calc_inverso(obj):
     n = float("".join(values)) if values[0] != "#" else 0

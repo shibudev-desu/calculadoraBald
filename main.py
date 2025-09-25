@@ -2,9 +2,6 @@ import tkinter as tk
 from tkinter import ttk 
 import random as random
 
-import variables as var
-from functions.fnNew.memoryFx import _sto, _rcl
-from functions.fnNew.signals import swapSignals
 from functions.fnOld.button_defs import make_botoes
 from functions.fnOld import all as operationals
 
