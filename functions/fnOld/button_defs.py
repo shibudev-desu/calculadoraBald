@@ -4,23 +4,26 @@ from functions.fnStranger import matheus as mth
 from functions.fnNew.memoryFx import _sto, _rcl
 from functions.fnNew.signals import swapSignals
 import variables as var
+from functions.fnStranger import Lucas as l
+from functions.fnStranger import allix as a
 
 def make_botoes(frame, controller):
     return [
         [
             ("", "SHIFT", (lambda: var.toggle_shift()), 7),
             ("", "ALPHA", (lambda: var.toggle_alpha()), 7),
-            ("", "REPLAY", ops.nao_implementado, 7),
-            ("CLR", "MODE", ops.nao_implementado, 7),
-            ("", "ON", (lambda: ops.limpar_tudo(frame.display)), 7)
+            ("", "REPLAY", nao_implementado, 7),
+            # frame.display??
+            ("CLR", "MODE", (lambda: l.toggle_mode(frame)), 7),
+            ("", "ON", (lambda: limpar_tudo(frame.display)), 7)
         ],
 
         [
             ("x!", "x⁻¹", (lambda: ops.um_sobre_x(frame.display)), 12),
-            ("nPr", "nCr", ops.nao_implementado, 12),
-            ("   ", "    ", ops.nao_implementado, 12),
-            ("Rec( :", "Pol(", ops.nao_implementado, 12),
-            ("³√", "x³", (lambda: ops.ao_cubo(frame.display)), 12)
+            ("nPr", "nCr", nao_implementado, 12),
+            ("   ", "    ", nao_implementado, 12),
+            ("Rec( :", "Pol(", nao_implementado, 12),
+            ("³√", "x³", (lambda: a.calc_cubo(frame.display) if not var.shift else a.calc_raiz_cubica(frame.display)), 12)
         ],
 
         [
@@ -42,12 +45,12 @@ def make_botoes(frame, controller):
         ],
 
         [
-            ("STO", "RCL", (lambda: _sto(frame.display, controller) if var.ShiftUsado() else _rcl(frame.display, controller)), 7),
-            ("⭠", "ENG", ops.nao_implementado, 7),
-            ("", "(", (lambda: ops.inserir("(", frame.display)), 7),
-            ("x", ")", (lambda: ops.inserir(")", frame.display)), 7),
-            (":     Y", ",", (lambda: ops.inserir(":", frame.display) if var.ShiftUsado() else ops.inserir(",", frame.display)), 7),
-            ("M- M", "M+", ops.nao_implementado, 7)
+            ("STO", "RCL", (lambda: _sto(frame.display, controller) if var.shift == True else _rcl(frame.display, controller)), 7),
+            ("⭠", "ENG", nao_implementado, 7),
+            ("", "(", (lambda: inserir("(", frame.display)), 7),
+            ("x", ")", (lambda: inserir(")", frame.display)), 7),
+            (":     Y", ",", (lambda: inserir(":" , frame.display) if var.shift is True else inserir(",", frame.display)), 7),
+            ("M- M", "M+", (lambda: l.func_m_plus()), 7)
         ],
 
         [

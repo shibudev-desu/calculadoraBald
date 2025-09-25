@@ -19,6 +19,7 @@ Por exemplo shift, alpha.
 Nesse caso ele vai pegar o modo que a calculadora está (fix, sci, norm) e a quantidade de dígitos
 de arredondamento.
 '''
+import random
 
 from functions.fnNew import degrees as deg
 
@@ -87,3 +88,11 @@ def formatDegree(expression, app, display):
         display.insert(0, texto)
         
         return
+
+def formatRand(expression, app, display):
+    expressao = (expression
+        .replace("Rnd(", "random.random(")
+    )
+
+    print(expressao)
+    formatDegree(expressao, app, display)

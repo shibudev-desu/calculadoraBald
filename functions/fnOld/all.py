@@ -9,7 +9,7 @@ from functions.fnStranger import matheus as mth
 def calcular(display, app):
     try:
         raw = display.get()
-        mth.inserir_numero(raw)
+        print(raw)
         expressao = (raw
             .replace("×", "*")
             .replace("÷", "/")
@@ -25,12 +25,13 @@ def calcular(display, app):
             .replace("Ran#(", "random.uniform(0, ")
             .replace("^", "**")
         )
+        print(expressao)
 
         if app.selecao.get() == "Normal":
             expressao = expressao.replace(",", ".")
 
-        ops.formatDegree(expressao, app, display)
-
+        ops.formatRand(expressao, app, display)
+        
     except (SyntaxError, ZeroDivisionError, NameError, ValueError, TypeError) as e:
         print(f"Erro: {e}")
         display.delete(0, "end")

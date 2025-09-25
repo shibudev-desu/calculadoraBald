@@ -133,6 +133,7 @@ def fnTAN_INV(valor):
         return math.degrees(math.atan(float(valor)))
     except:
         return "Erro"
+    
 def fnExp(valor):
     try:
         resultado = 10 ** float(valor)
