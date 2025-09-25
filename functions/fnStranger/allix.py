@@ -65,7 +65,6 @@ def calc_radiciacao(obj):
         values[:] = ["#"]
         obj.set(str(indice) + "√")
 
-
 def calc_inverso(obj):
     n = float("".join(values)) if values[0] != "#" else 0
     if n == 0:

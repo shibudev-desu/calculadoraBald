@@ -77,8 +77,8 @@ def make_botoes(frame, controller):
         ],
 
         [
-            ("Rnd", "0", (lambda: ops.inserir("Rnd(", frame.display) if var.shift == True else ops.inserir("0", frame.display)), 7),
-            ("Ran#", ".", (lambda: ops.inserir("Ran#(", frame.display) if var.shift == True else ops.inserir(".", frame.display)), 7),
+            ("Rnd", "0", (lambda: ops.inserir("0", frame.display) if not var.shift else ops.inserir("Rnd(", frame.display)), 7),
+            ("Ran#", ".", (lambda: ops.inserir(".", frame.display) if not var.shift else ops.inserir("Ran#(", frame.display)), 7),
             ("π", "EXP", (lambda: mth.inserir_exp() if not var.shift else mth.inserir_pi()), 7),
             ("DRG+", "Ans", (lambda: mth.inserir_ans() if not var.shift else mth.ativar_menu_drg(frame.display)), 7),
             ("%", "=", (lambda: ops.calcular(frame.display, controller)), 7)
