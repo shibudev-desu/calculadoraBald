@@ -33,12 +33,12 @@ def make_botoes(frame, controller):
         ],
 
         [
-            ("A", "(-)", (lambda: swapSignals(frame.display) if not var.AlphaUsado() else ops.nao_implementado()), 7),
+            ("A", "(-)", (lambda: swapSignals(frame.display) if var.alpha == False else ops.nao_implementado()), 7),
             ("⭠ B", ".,, ,,", (lambda: ops.inserir("°", frame.display)), 7),
-            ("hyp", "C", ops.nao_implementado, 7),
-            ("sin⁻¹   D", "sin", (lambda: ops.inserir("sin(", frame.display)), 7),
-            ("cos⁻¹ E", "cos", (lambda: ops.inserir("cos(", frame.display)), 7),
-            ("tan⁻¹ F", "tan", (lambda: ops.inserir("tan(", frame.display)), 7)
+            ("hyp", "C", (lambda: mth.inserir_H() if var.shift == False else ops.nao_implementado()), 7),
+            ("sin⁻¹   D", "sin", (lambda: mth.inserir_sin() if var.shift == False else mth.inserir_sin()), 7),
+            ("cos⁻¹ E", "cos", (lambda: mth.inserir_cos() if var.shift == False else mth.inserir_cos()), 7),
+            ("tan⁻¹ F", "tan", (lambda: mth.inserir_tan() if var.shift == False else mth.inserir_tan()), 7)
         ],
 
         [
@@ -77,8 +77,8 @@ def make_botoes(frame, controller):
         [
             ("Rnd", "0", (lambda: ops.inserir("Rnd(", frame.display) if var.shift == True else ops.inserir("0", frame.display)), 7),
             ("Ran#", ".", (lambda: ops.inserir("Ran#(", frame.display) if var.shift == True else ops.inserir(".", frame.display)), 7),
-            ("π", "EXP", ops.nao_implementado, 7),
-            ("DRG+", "Ans", (lambda: ops.nao_implementado, 7 if var.shift == False else mth.ativar_menu_drg(frame.display)), 7),
+            ("π", "EXP", (lambda: mth.inserir_exp() if var.shift == False else mth.inserir_pi()), 7),
+            ("DRG+", "Ans", (lambda: mth.inserir_ans() if var.shift == False else mth.ativar_menu_drg(frame.display)), 7),
             ("%", "=", (lambda: ops.calcular(frame.display, controller)), 7)
         ]
     ]
