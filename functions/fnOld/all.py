@@ -5,11 +5,14 @@ import variables as var
 from functions.fnNew import degrees as deg
 from functions.fnNew import operations_def as ops
 from functions.fnStranger import matheus as mth
+from functions.fnStranger.henrique import nCr
 
 def calcular(display, app):
     try:
         raw = display.get()
-        print(raw)
+
+        if "C" in raw: nCr(raw)
+
         expressao = (raw
             .replace("×", "*")
             .replace("÷", "/")
@@ -25,8 +28,6 @@ def calcular(display, app):
             .replace("Ran#(", "random.uniform(0, ")
             .replace("^", "**")
         )
-        print(expressao)
-
         if app.selecao.get() == "Normal":
             expressao = expressao.replace(",", ".")
 
