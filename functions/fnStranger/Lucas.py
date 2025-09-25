@@ -1,13 +1,10 @@
 import tkinter as tk
-
 import variables as var
 
-# Implementado.
 def toggle_shift(shift):
     shift = not shift
     return shift
 
-#Implementado.
 def toggle_alpha(alpha):
     alpha = not alpha
     return alpha
@@ -87,7 +84,6 @@ def formatar_numero(valor):
 
 memoria = 0
 
-# Implementado.
 def func_m_plus():
     global memoria, numero1, numero2, operacao, resultado, shift, alpha
 

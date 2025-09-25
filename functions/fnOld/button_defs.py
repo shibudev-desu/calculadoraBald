@@ -13,13 +13,12 @@ def make_botoes(frame, controller):
             ("", "SHIFT", (lambda: var.toggle_shift()), 7),
             ("", "ALPHA", (lambda: var.toggle_alpha()), 7),
             ("", "REPLAY", ops.nao_implementado, 7),
-            # frame.display??
             ("CLR", "MODE", (lambda: l.toggle_mode(frame)), 7),
             ("", "ON", (lambda: ops.limpar_tudo(frame.display)), 7)
         ],
 
         [
-            ("x!", "x⁻¹", (lambda: ops.um_sobre_x(frame.display)), 12),
+            ("x!", "x⁻¹", (lambda: a.calc_inverso(frame.display) if not var.shift else a.calc_fatorial(frame.display)), 12),
             ("nPr", "nCr", ops.nao_implementado, 12),
             ("   ", "    ", ops.nao_implementado, 12),
             ("Rec( :", "Pol(", ops.nao_implementado, 12),
@@ -28,20 +27,20 @@ def make_botoes(frame, controller):
 
         [
             ("d/c", "ab/c", ops.nao_implementado, 7),
-            ("", "√", (lambda: ops.calcular_raiz(frame.display)), 7),
-            ("", "x²", (lambda: ops.ao_quadrado(frame.display)), 7),
-            ("x√", "^", (lambda: ops.inserir("^", frame.display)), 7),
+            ("", "√", (lambda: a.calc_raiz(frame.display)), 7),
+            ("", "x²", (lambda: a.calc_quadrado(frame.display)), 7),
+            ("x√", "^", (lambda: a.calc_exponenciacao(frame.display) if not var.shift else a.calc_radiciacao(frame.display)), 7),
             ("10^", "log", (lambda: ops.inserir("log(", frame.display)), 7),
-            ("e^ e", "ln", (lambda: ops.inserir("ln(", frame.display)), 7)
+            ("e^e", "ln", (lambda: ops.inserir("ln(", frame.display)), 7)
         ],
 
         [
             ("A", "(-)", (lambda: swapSignals(frame.display) if var.alpha == False else ops.nao_implementado()), 7),
             ("⭠ B", ".,, ,,", (lambda: ops.inserir("°", frame.display)), 7),
-            ("hyp", "C", (lambda: mth.inserir_H() if var.shift == False else ops.nao_implementado()), 7),
-            ("sin⁻¹   D", "sin", (lambda: mth.inserir_sin() if var.shift == False else mth.inserir_sin()), 7),
-            ("cos⁻¹ E", "cos", (lambda: mth.inserir_cos() if var.shift == False else mth.inserir_cos()), 7),
-            ("tan⁻¹ F", "tan", (lambda: mth.inserir_tan() if var.shift == False else mth.inserir_tan()), 7)
+            ("hyp", "C", (lambda: mth.inserir_H() if not var.shift else ops.nao_implementado()), 7),
+            ("sin⁻¹   D", "sin", (lambda: mth.inserir_sin() if not var.shift else mth.inserir_sin()), 7),
+            ("cos⁻¹ E", "cos", (lambda: mth.inserir_cos() if not var.shift else mth.inserir_cos()), 7),
+            ("tan⁻¹ F", "tan", (lambda: mth.inserir_tan() if not var.shift else mth.inserir_tan()), 7)
         ],
 
         [
@@ -70,8 +69,8 @@ def make_botoes(frame, controller):
         ],
 
         [
-            ("S-SUM", "1", (lambda: ops.inserir("1", frame.display) if var.shift == False else mth.ativar_menu_s_sum()), 7),
-            ("SVAR", "2", (lambda: ops.inserir("2", frame.display) if var.shift == False else mth.ativar_menu_s_var()), 7),
+            ("S-SUM", "1", (lambda: ops.inserir("1", frame.display) if not var.shift else mth.ativar_menu_s_sum()), 7),
+            ("SVAR", "2", (lambda: ops.inserir("2", frame.display) if not var.shift else mth.ativar_menu_s_var()), 7),
             ("", "3", (lambda: ops.inserir("3", frame.display)), 7),
             ("", "+", (lambda: ops.inserir("+", frame.display)), 7),
             ("", "-", (lambda: ops.inserir("-", frame.display)), 7)
@@ -80,8 +79,8 @@ def make_botoes(frame, controller):
         [
             ("Rnd", "0", (lambda: ops.inserir("Rnd(", frame.display) if var.shift == True else ops.inserir("0", frame.display)), 7),
             ("Ran#", ".", (lambda: ops.inserir("Ran#(", frame.display) if var.shift == True else ops.inserir(".", frame.display)), 7),
-            ("π", "EXP", (lambda: mth.inserir_exp() if var.shift == False else mth.inserir_pi()), 7),
-            ("DRG+", "Ans", (lambda: mth.inserir_ans() if var.shift == False else mth.ativar_menu_drg(frame.display)), 7),
+            ("π", "EXP", (lambda: mth.inserir_exp() if not var.shift else mth.inserir_pi()), 7),
+            ("DRG+", "Ans", (lambda: mth.inserir_ans() if not var.shift else mth.ativar_menu_drg(frame.display)), 7),
             ("%", "=", (lambda: ops.calcular(frame.display, controller)), 7)
         ]
     ]
