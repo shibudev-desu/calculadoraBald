@@ -37,7 +37,7 @@ def make_botoes(frame, controller):
             ("x!", "x⁻¹", (lambda: a.calc_inverso(frame.display) if not var.shift else a.calc_fatorial(frame.display)), 12),
             ("nPr", "nCr", (lambda: ops.inserir("P", frame.display) if var.shift == True else ops.inserir("C", frame.display)), 12),
             ("   ", "    ", ops.nao_implementado, 12),
-            ("Rec( :", "Pol(", ops.inserir("Pol(", frame.display) if not var.shift else ops.inserir("Rec(", frame.display), 12),
+            ("Rec( :", "Pol(", (lambda: ops.inserir("Pol(", frame.display) if not var.shift else ops.inserir("Rec(", frame.display)), 12),
             ("³√", "x³", (lambda: a.calc_cubo(frame.display) if not var.shift else a.calc_raiz_cubica(frame.display)), 12)
         ],
 
