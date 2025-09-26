@@ -10,4 +10,4 @@ def Dc(x: float) -> str:
     else:
         return f"{inteiro} {resto}/{frac.denominator}"
 
-print(Dc(20.5))
+# print(Dc(20.5))

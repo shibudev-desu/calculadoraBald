@@ -18,6 +18,16 @@ def algo2(display):
     display.delete(0, tk.END)
     display.insert(0, result)
 
+def algo3(display):
+    result = ENG.ENG(ops.format(display))
+    display.delete(0, tk.END)
+    display.insert(0, result)
+
+def algo4(display):
+    result = Ln.fnLn(ops.format(display))
+    display.delete(0, tk.END)
+    display.insert(0, result)
+
 def make_botoes(frame, controller):
     return [
         [
@@ -42,7 +52,7 @@ def make_botoes(frame, controller):
             ("", "x²", (lambda: a.calc_quadrado(frame.display)), 7),
             ("x√", "^", (lambda: a.calc_exponenciacao(frame.display) if not var.shift else a.calc_radiciacao(frame.display)), 7),
             ("10^", "log", (lambda: ops.inserir("log(", frame.display)), 7),
-            ("e^e", "ln", (lambda: ops.inserir("ln(", frame.display)), 7)
+            ("e^e", "ln", (lambda: algo4(frame.display)), 7)
         ],
 
         [
@@ -56,7 +66,7 @@ def make_botoes(frame, controller):
 
         [
             ("STO", "RCL", (lambda: _sto(frame.display, controller) if var.shift == True else _rcl(frame.display, controller)), 7),
-            ("⭠", "ENG", ops.nao_implementado, 7),
+            ("⭠", "ENG", (lambda: algo3(frame.display)), 7),
             ("", "(", (lambda: ops.inserir("(", frame.display)), 7),
             ("x", ")", (lambda: ops.inserir(")", frame.display)), 7),
             (":     Y", ",", (lambda: ops.inserir(":" , frame.display) if var.shift is True else ops.inserir(",", frame.display)), 7),
