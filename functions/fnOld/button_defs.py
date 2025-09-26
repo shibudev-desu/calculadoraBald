@@ -6,7 +6,7 @@ from functions.fnNew.signals import swapSignals
 import variables as var
 from functions.fnStranger import Lucas as l
 from functions.fnStranger import lynn as a
-from functions.fnStranger.henrique import (Abc, Dc, ENG, Ln, Log, nCr, nPr, Pol, Rec, twoPoints)
+from functions.fnStranger.henrique import (Abc, Dc, ENG, Ln, Log, Pol, Rec, twoPoints)
 
 
 def make_botoes(frame, controller):
@@ -15,17 +15,15 @@ def make_botoes(frame, controller):
             ("", "SHIFT", (lambda: var.toggle_shift()), 7),
             ("", "ALPHA", (lambda: var.toggle_alpha()), 7),
             ("", "REPLAY", ops.nao_implementado, 7),
-            # frame.display??
             ("CLR", "MODE", (lambda: l.toggle_mode(frame)), 7),
-            ("", "ON", (lambda: ops.limpar_tudo(frame.display)), 7)
             ("", "ON", (lambda: ops.limpar_tudo(frame.display)), 7)
         ],
 
         [
             ("x!", "x⁻¹", (lambda: a.calc_inverso(frame.display) if not var.shift else a.calc_fatorial(frame.display)), 12),
-            ("nPr", "nCr", ops.(lambda: ops.inserir("P", frame.display) if var.shift == True else ops.inserir("C", frame.display)), 12),
-            ("   ", "    ", ops.ops.nao_implementado, 12),
-            ("Rec( :", "Pol(", ops.ops.nao_implementado, 12),
+            ("nPr", "nCr", (lambda: ops.inserir("P", frame.display) if var.shift == True else ops.inserir("C", frame.display)), 12),
+            ("   ", "    ", ops.nao_implementado, 12),
+            ("Rec( :", "Pol(", ops.nao_implementado, 12),
             ("³√", "x³", (lambda: a.calc_cubo(frame.display) if not var.shift else a.calc_raiz_cubica(frame.display)), 12)
         ],
 
