@@ -3,7 +3,7 @@ import math
 import re
 import variables as var
 from functions.fnNew import operations_def as ops
-from functions.fnStranger.henrique import (Abc, Dc, ENG, Ln, Log, nCr, nPr, Pol, Rec, twoPoints)
+from functions.fnStranger.henrique import (Ln, Log, nCr, nPr, Pol, Rec)
 
 def format(display):
     raw = display.get()

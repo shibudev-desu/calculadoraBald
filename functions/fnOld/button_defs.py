@@ -6,7 +6,7 @@ from functions.fnNew.signals import swapSignals
 import variables as var
 from functions.fnStranger import Lucas as l
 from functions.fnStranger import lynn as a
-from functions.fnStranger.henrique import (Abc, Dc, ENG, Ln, Log, Pol, Rec, twoPoints)
+from functions.fnStranger.henrique import (Abc, Dc, ENG, twoPoints)
 
 def algo1(display):
     result = Abc.Abc(ops.format(display))
