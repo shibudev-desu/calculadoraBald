@@ -3,8 +3,7 @@ import math
 import re
 import variables as var
 from functions.fnNew import operations_def as ops
-from functions.fnStranger.henrique import nCr
-from functions.fnStranger.henrique import nPr
+from functions.fnStranger.henrique import (Abc, Dc, ENG, Ln, Log, nCr, nPr, Pol, Rec, twoPoints)
 
 def format(display):
     raw = display.get()
@@ -21,6 +20,30 @@ def format(display):
         display.delete(0, "end")
         display.insert(0, raw)
         return
+    
+    if "ln" in raw:
+        raw = Ln.fnLn(raw)
+        display.delete(0, "end")
+        display.insert(0, raw)
+        return
+    
+    if "log" in raw:
+        raw = Log.fnLog10(raw)
+        display.delete(0, "end")
+        display.insert(0, raw)
+        return
+    
+    if "Pol" in raw:
+        raw = Pol.Pol(raw)
+        display.delete(0, "end")
+        display.insert(0, raw)
+        return
+    
+    if "Rec" in raw:
+        raw = Rec.Rec(raw)
+        display.delete(0, "end")
+        display.insert(0, raw)
+        return    
 
     expressao = (raw
         .replace("×", "*")
@@ -56,6 +79,30 @@ def calcular(display, app):
           display.delete(0, "end")
           display.insert(0, raw)
           return
+      
+      if "ln" in raw:
+        raw = Ln.fnLn(raw)
+        display.delete(0, "end")
+        display.insert(0, raw)
+        return
+    
+      if "log" in raw:
+        raw = Log.fnLog10(raw)
+        display.delete(0, "end")
+        display.insert(0, raw)
+        return
+        
+      if "Pol" in raw:
+        raw = Pol.Pol(raw)
+        display.delete(0, "end")
+        display.insert(0, raw)
+        return
+        
+      if "Rec" in raw:
+        raw = Rec.Rec(raw)
+        display.delete(0, "end")
+        display.insert(0, raw)
+        return
 
       expressao = (raw
           .replace("×", "*")
