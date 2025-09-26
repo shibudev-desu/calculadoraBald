@@ -2,12 +2,43 @@ import tkinter as tk
 import math
 import re
 import variables as var
-from functions.fnNew import degrees as deg
 from functions.fnNew import operations_def as ops
-from functions.fnStranger import matheus as mth
 from functions.fnStranger.henrique import nCr
 from functions.fnStranger.henrique import nPr
 
+def format(display):
+    raw = display.get()
+
+    if "C" in raw: 
+        raw = nCr.nCr(raw)
+        print(raw)
+        display.delete(0, "end")
+        display.insert(0, raw)
+        return
+    
+    if "P" in raw:
+        raw = nPr.nPr(raw)
+        display.delete(0, "end")
+        display.insert(0, raw)
+        return
+
+    expressao = (raw
+        .replace("×", "*")
+        .replace("÷", "/")
+        .replace("√", "math.sqrt")
+        .replace("sin(", "math.sin(math.radians(")
+        .replace("cos(", "math.cos(math.radians(")
+        .replace("tan(", "math.tan(math.radians(")
+        .replace("asin(", "math.degrees(math.asin(")
+        .replace("acos(", "math.degrees(math.acos(")
+        .replace("atan(", "math.degrees(math.atan(")
+        .replace("log(", "math.log10(")
+        .replace("ln(", "math.log(")
+        .replace("Ran#(", "random.uniform(0, ")
+        .replace("^", "**")
+    )
+
+    return eval(expressao)
 
 def calcular(display, app):
   try:
@@ -19,6 +50,7 @@ def calcular(display, app):
           display.delete(0, "end")
           display.insert(0, raw)
           return
+      
       if "P" in raw:
           raw = nPr.nPr(raw)
           display.delete(0, "end")

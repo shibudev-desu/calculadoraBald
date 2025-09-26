@@ -9,4 +9,4 @@ def Abc(x: float) -> str:
     return f"{frac.numerator}/{frac.denominator}"
     
 
-# print(Abc(eval("25÷85+12÷25")))
+# print(Abc(eval("25/85+12/25")))

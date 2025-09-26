@@ -8,6 +8,15 @@ from functions.fnStranger import Lucas as l
 from functions.fnStranger import lynn as a
 from functions.fnStranger.henrique import (Abc, Dc, ENG, Ln, Log, Pol, Rec, twoPoints)
 
+def algo1(display):
+    result = Abc.Abc(ops.format(display))
+    display.delete(0, tk.END)
+    display.insert(0, result)
+
+def algo2(display):
+    result = Dc.Dc(ops.format(display))
+    display.delete(0, tk.END)
+    display.insert(0, result)
 
 def make_botoes(frame, controller):
     return [
@@ -28,7 +37,7 @@ def make_botoes(frame, controller):
         ],
 
         [
-            ("d/c", "ab/c", ops.nao_implementado, 7),
+            ("d/c", "ab/c", (lambda: algo1(frame.display) if not var.shift else algo2(frame.display)), 7),
             ("", "√", (lambda: a.calc_raiz(frame.display)), 7),
             ("", "x²", (lambda: a.calc_quadrado(frame.display)), 7),
             ("x√", "^", (lambda: a.calc_exponenciacao(frame.display) if not var.shift else a.calc_radiciacao(frame.display)), 7),
