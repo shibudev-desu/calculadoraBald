@@ -28,6 +28,11 @@ def algo4(display):
     display.delete(0, tk.END)
     display.insert(0, result)
 
+def algo5(display):
+    result = Log.fnLog10(ops.format(display))
+    display.delete(0, tk.END)
+    display.insert(0, result)
+
 def make_botoes(frame, controller):
     return [
         [
@@ -51,7 +56,7 @@ def make_botoes(frame, controller):
             ("", "√", (lambda: a.calc_raiz(frame.display)), 7),
             ("", "x²", (lambda: a.calc_quadrado(frame.display)), 7),
             ("x√", "^", (lambda: a.calc_exponenciacao(frame.display) if not var.shift else a.calc_radiciacao(frame.display)), 7),
-            ("10^", "log", (lambda: ops.inserir("log(", frame.display)), 7),
+            ("10^", "log", (lambda: algo5(frame.display)), 7),
             ("e^e", "ln", (lambda: algo4(frame.display)), 7)
         ],
 
